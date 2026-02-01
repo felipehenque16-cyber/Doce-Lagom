@@ -1,0 +1,2405 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doce Lagom - Confeitaria Artesanal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --creme: #F9F5F0;
+            --terroso-claro: #E8D9C5;
+            --terroso-medio: #D4B996;
+            --verde-menta: #A3B8A3;
+            --azul-acinzentado: #7A8B99;
+            --marrom-escuro: #5D4A3E;
+            --cinza-claro: #EAEAEA;
+            --branco: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--creme);
+            color: var(--marrom-escuro);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header e Navegação */
+        header {
+            background-color: var(--branco);
+            box-shadow: 0 2px 15px rgba(93, 74, 62, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .logo {
+            height: 80px;
+            width: auto;
+            margin-right: 15px;
+        }
+        
+        .brand-text {
+            text-align: center;
+        }
+        
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--marrom-escuro);
+            letter-spacing: 1px;
+        }
+        
+        .brand-tagline {
+            font-size: 1rem;
+            color: var(--azul-acinzentado);
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .brand-proposal {
+            font-size: 0.9rem;
+            color: var(--verde-menta);
+            font-weight: 500;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+        
+        nav {
+            width: 100%;
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--marrom-escuro);
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--verde-menta);
+            color: var(--branco);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(233, 217, 197, 0.8), rgba(233, 217, 197, 0.9)), url('https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--marrom-escuro);
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--azul-acinzentado);
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+        
+        /* Seções de Produtos */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--marrom-escuro);
+            text-align: center;
+            margin: 40px 0 30px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--verde-menta);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .product-card {
+            background-color: var(--branco);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(93, 74, 62, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(93, 74, 62, 0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: var(--terroso-claro);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--marrom-escuro);
+        }
+        
+        .product-description {
+            color: var(--azul-acinzentado);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--verde-menta);
+            margin-bottom: 15px;
+        }
+        
+        .size-selector, .flavor-selector {
+            margin-bottom: 15px;
+        }
+        
+        .size-selector label, .flavor-selector label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--marrom-escuro);
+        }
+        
+        .size-options, .flavor-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .size-option, .flavor-option {
+            padding: 6px 12px;
+            border: 1px solid var(--terroso-medio);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .size-option:hover, .flavor-option:hover {
+            background-color: var(--terroso-claro);
+        }
+        
+        .size-option.selected, .flavor-option.selected {
+            background-color: var(--verde-menta);
+            color: var(--branco);
+            border-color: var(--verde-menta);
+        }
+        
+        .flavor-option.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .quantity-btn {
+            background-color: var(--terroso-claro);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--marrom-escuro);
+            transition: all 0.3s ease;
+        }
+        
+        .quantity-btn:hover {
+            background-color: var(--terroso-medio);
+        }
+        
+        .quantity-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .stock-info {
+            font-size: 0.85rem;
+            color: var(--azul-acinzentado);
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .stock-info.low {
+            color: #e74c3c;
+        }
+        
+        .add-to-cart {
+            background-color: var(--verde-menta);
+            color: var(--branco);
+            border: none;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #8fa38f;
+            transform: scale(1.02);
+        }
+        
+        .add-to-cart:disabled {
+            background-color: var(--cinza-claro);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Carrinho */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background-color: var(--branco);
+            box-shadow: -5px 0 20px rgba(93, 74, 62, 0.15);
+            transition: right 0.4s ease;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--cinza-claro);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--marrom-escuro);
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--azul-acinzentado);
+        }
+        
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--cinza-claro);
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-details {
+            font-size: 0.9rem;
+            color: var(--azul-acinzentado);
+        }
+        
+        .cart-item-price {
+            font-weight: 600;
+            color: var(--verde-menta);
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid var(--cinza-claro);
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--marrom-escuro);
+        }
+        
+        .cart-form input, .cart-form select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--cinza-claro);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .payment-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-option {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--cinza-claro);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-option.selected {
+            border-color: var(--verde-menta);
+            background-color: rgba(163, 184, 163, 0.1);
+        }
+        
+        .cart-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .cart-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .clear-cart {
+            background-color: var(--terroso-claro);
+            color: var(--marrom-escuro);
+        }
+        
+        .clear-cart:hover {
+            background-color: var(--terroso-medio);
+        }
+        
+        .checkout-whatsapp {
+            background-color: #25D366;
+            color: var(--branco);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .checkout-whatsapp:hover {
+            background-color: #128C7E;
+        }
+        
+        /* Botões Flutuantes */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(93, 74, 62, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .cart-btn-floating {
+            background-color: var(--verde-menta);
+            color: var(--branco);
+        }
+        
+        .cart-btn-floating:hover {
+            background-color: #8fa38f;
+            transform: scale(1.1);
+        }
+        
+        .whatsapp-btn-floating {
+            background-color: #25D366;
+            color: var(--branco);
+        }
+        
+        .whatsapp-btn-floating:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
+        }
+        
+        /* Login Modal */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-content {
+            background-color: var(--branco);
+            padding: 40px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--marrom-escuro);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--cinza-claro);
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .login-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--verde-menta);
+            color: var(--branco);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .login-submit:hover {
+            background-color: #8fa38f;
+        }
+        
+        .login-error {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 10px 0;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .brand-name {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 10px;
+            }
+            
+            .nav-links a {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .hero {
+                padding: 40px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .floating-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .floating-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+            }
+            
+            .login-content {
+                padding: 20px;
+            }
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .product-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Mensagens */
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            z-index: 3000;
+            animation: slideIn 0.3s ease forwards;
+            max-width: 300px;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .success {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .error {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .info {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--marrom-escuro);
+            color: var(--creme);
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-quote {
+            font-style: italic;
+            margin: 20px 0;
+            color: var(--terroso-claro);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--azul-acinzentado);
+        }
+        
+        .sold-out-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(231, 76, 60, 0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .selection-hint {
+            font-size: 0.8rem;
+            color: var(--azul-acinzentado);
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .required-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .user-menu {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .user-btn {
+            background: none;
+            border: none;
+            color: var(--marrom-escuro);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .user-btn:hover {
+            background-color: var(--cinza-claro);
+        }
+        
+        .admin-link {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+        }
+        
+        .admin-link a {
+            color: var(--verde-menta);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .admin-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .history-container {
+            background-color: var(--branco);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            box-shadow: 0 5px 20px rgba(93, 74, 62, 0.1);
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--cinza-claro);
+        }
+        
+        .history-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--marrom-escuro);
+        }
+        
+        .back-to-shop {
+            background-color: var(--verde-menta);
+            color: var(--branco);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-to-shop:hover {
+            background-color: #8fa38f;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header e Navegação -->
+    <header>
+        <div class="admin-link">
+            <a href="admin-lagom.html" target="_blank">
+                <i class="fas fa-lock"></i> Acesso Admin
+            </a>
+        </div>
+        <div class="user-menu">
+            <button class="user-btn" id="user-history-btn" title="Histórico de Compras">
+                <i class="fas fa-history"></i>
+            </button>
+            <button class="user-btn" id="user-login-btn" title="Entrar na Conta">
+                <i class="fas fa-user"></i>
+            </button>
+        </div>
+        <div class="container header-container">
+            <div class="logo-section">
+                <img src="https://i.ibb.co/Zp2FXJPB/Chat-GPT-Image-18-de-jan-de-2026-16-00-28-removebg-preview.png" alt="Doce Lagom Logo" class="logo">
+                <div class="brand-text">
+                    <h1 class="brand-name">Doce Lagom</h1>
+                    <p class="brand-tagline">Onde o menos é, deliciosamente, mais.</p>
+                    <p class="brand-proposal">Confeitaria equilibrada, artesanal e com doçura na medida certa.</p>
+                </div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#trufas" class="nav-link active"><i class="fas fa-cookie-bite"></i> Trufas</a></li>
+                    <li><a href="#bolos-pote" class="nav-link"><i class="fas fa-mug-hot"></i> Bolos de Pote</a></li>
+                    <li><a href="#combos" class="nav-link"><i class="fas fa-gift"></i> Combos</a></li>
+                    <li><a href="#" class="nav-link" id="view-cart"><i class="fas fa-shopping-cart"></i> Carrinho (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Loja Principal -->
+    <div id="main-store">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Doçura na medida certa</h1>
+                <p>Experimente nossos produtos artesanais feitos com ingredientes selecionados e muito cuidado. Cada mordida é uma experiência equilibrada de sabores.</p>
+            </div>
+        </section>
+
+        <!-- Seção de Trufas -->
+        <section id="trufas" class="products-section">
+            <div class="container">
+                <h2 class="section-title">Trufas Artesanais</h2>
+                <div class="products-grid" id="trufas-grid">
+                    <!-- As trufas serão inseridas via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Bolos de Pote -->
+        <section id="bolos-pote" class="products-section">
+            <div class="container">
+                <h2 class="section-title">Bolos de Pote</h2>
+                <div class="products-grid" id="bolos-grid">
+                    <!-- Os bolos serão inseridos via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Combos -->
+        <section id="combos" class="products-section">
+            <div class="container">
+                <h2 class="section-title">Combos Especiais</h2>
+                <div class="products-grid" id="combos-grid">
+                    <!-- Os combos serão inseridos via JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Histórico de Compras (Oculto por padrão) -->
+    <div id="order-history" class="container" style="display: none;">
+        <div class="history-container">
+            <div class="history-header">
+                <h2 class="history-title">Meu Histórico de Compras</h2>
+                <button class="back-to-shop" id="back-to-shop">Voltar para Loja</button>
+            </div>
+            
+            <div id="history-list">
+                <!-- Histórico de pedidos será carregado aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Carrinho Lateral -->
+    <aside class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Itens do carrinho serão inseridos aqui -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total">R$ 0,00</span>
+            </div>
+            <form class="cart-form" id="checkout-form">
+                <input type="text" id="customer-name" placeholder="Seu nome" required>
+                <input type="text" id="apartment" placeholder="Apartamento" required>
+                <input type="text" id="block" placeholder="Bloco" required>
+                
+                <div class="payment-options">
+                    <div class="payment-option" data-payment="pix">
+                        <i class="fas fa-qrcode"></i> Pix
+                    </div>
+                    <div class="payment-option" data-payment="dinheiro">
+                        <i class="fas fa-money-bill-wave"></i> Dinheiro
+                    </div>
+                </div>
+                <input type="hidden" id="payment-method" required>
+                
+                <div class="cart-actions">
+                    <button type="button" class="cart-btn clear-cart" id="clear-cart-btn">Limpar Carrinho</button>
+                    <button type="submit" class="cart-btn checkout-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Confirmar Pedido
+                    </button>
+                </div>
+            </form>
+        </div>
+    </aside>
+
+    <!-- Modal de Login -->
+    <div class="login-modal" id="login-modal">
+        <div class="login-content">
+            <h2 class="login-title">Entre na sua conta</h2>
+            
+            <form class="login-form" id="client-login-form">
+                <input type="text" id="client-email" placeholder="Seu e-mail" required>
+                <input type="text" id="client-name" placeholder="Seu nome" required>
+                <button type="submit" class="login-submit">Entrar na Conta</button>
+                <div class="login-error" id="client-error"></div>
+                <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: var(--azul-acinzentado);">
+                    Não tem cadastro? Basta informar seu e-mail e nome!
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Botões Flutuantes -->
+    <div class="floating-buttons">
+        <button class="floating-btn whatsapp-btn-floating" id="whatsapp-float" title="Fale conosco no WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <button class="floating-btn cart-btn-floating" id="cart-float" title="Ver Carrinho">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-float-count">0</span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="https://i.ibb.co/Zp2FXJPB/Chat-GPT-Image-18-de-jan-de-2026-16-00-28-removebg-preview.png" alt="Doce Lagom Logo" class="footer-logo">
+                <p class="footer-quote">"Onde o menos é, deliciosamente, mais."</p>
+                <p>Confeitaria equilibrada, artesanal e com doçura na medida certa.</p>
+                <p>Faça sua reserva e retire na nossa loja ou combine a entreça.</p>
+                <div class="copyright">
+                    &copy; 2023 Doce Lagom. Todos os direitos reservados.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sistema de Banco de Dados Local (APENAS para dados da loja)
+        const DB = {
+            // Chaves do localStorage
+            KEYS: {
+                PRODUCTS: 'doce_lagom_products',
+                ORDERS: 'doce_lagom_orders',
+                CUSTOMERS: 'doce_lagom_customers',
+                CURRENT_USER: 'doce_lagom_current_user',
+                CART: 'doce_lagom_cart'
+            },
+            
+            // Inicializar banco de dados
+            init: function() {
+                // Verificar se os dados já existem
+                if (!localStorage.getItem(this.KEYS.PRODUCTS)) {
+                    this.saveProducts(productsData);
+                }
+                
+                if (!localStorage.getItem(this.KEYS.ORDERS)) {
+                    this.saveOrders([]);
+                }
+                
+                if (!localStorage.getItem(this.KEYS.CUSTOMERS)) {
+                    this.saveCustomers([]);
+                }
+                
+                if (!localStorage.getItem(this.KEYS.CART)) {
+                    this.saveCart([]);
+                }
+            },
+            
+            // Produtos
+            getProducts: function() {
+                return JSON.parse(localStorage.getItem(this.KEYS.PRODUCTS)) || productsData;
+            },
+            
+            saveProducts: function(products) {
+                localStorage.setItem(this.KEYS.PRODUCTS, JSON.stringify(products));
+            },
+            
+            updateProductStock: function(productId, quantitySold) {
+                const products = this.getProducts();
+                
+                // Procurar em trufas
+                let product = products.trufas.find(p => p.id === productId);
+                if (product) {
+                    product.stock -= quantitySold;
+                    if (product.stock < 0) product.stock = 0;
+                    this.saveProducts(products);
+                    return product.stock;
+                }
+                
+                // Procurar em bolos
+                product = products.bolosPote.find(p => p.id === productId);
+                if (product) {
+                    product.stock -= quantitySold;
+                    if (product.stock < 0) product.stock = 0;
+                    this.saveProducts(products);
+                    return product.stock;
+                }
+                
+                // Procurar em combos
+                product = products.combos.find(p => p.id === productId);
+                if (product) {
+                    product.stock -= quantitySold;
+                    if (product.stock < 0) product.stock = 0;
+                    this.saveProducts(products);
+                    return product.stock;
+                }
+                
+                return -1;
+            },
+            
+            // Pedidos
+            getOrders: function() {
+                return JSON.parse(localStorage.getItem(this.KEYS.ORDERS)) || [];
+            },
+            
+            saveOrders: function(orders) {
+                localStorage.setItem(this.KEYS.ORDERS, JSON.stringify(orders));
+            },
+            
+            addOrder: function(order) {
+                const orders = this.getOrders();
+                order.id = Date.now(); // ID único baseado no timestamp
+                order.date = new Date().toISOString();
+                order.status = 'pending'; // pending, confirmed, delivered
+                orders.unshift(order); // Adiciona no início do array
+                this.saveOrders(orders);
+                return order;
+            },
+            
+            // Clientes
+            getCustomers: function() {
+                return JSON.parse(localStorage.getItem(this.KEYS.CUSTOMERS)) || [];
+            },
+            
+            saveCustomers: function(customers) {
+                localStorage.setItem(this.KEYS.CUSTOMERS, JSON.stringify(customers));
+            },
+            
+            getOrCreateCustomer: function(email, name) {
+                const customers = this.getCustomers();
+                let customer = customers.find(c => c.email === email);
+                
+                if (!customer) {
+                    customer = {
+                        id: Date.now(),
+                        email: email,
+                        name: name,
+                        orders: [],
+                        createdAt: new Date().toISOString()
+                    };
+                    customers.push(customer);
+                    this.saveCustomers(customers);
+                }
+                
+                return customer;
+            },
+            
+            addOrderToCustomer: function(customerEmail, orderId) {
+                const customers = this.getCustomers();
+                const customerIndex = customers.findIndex(c => c.email === customerEmail);
+                if (customerIndex !== -1) {
+                    if (!customers[customerIndex].orders.includes(orderId)) {
+                        customers[customerIndex].orders.push(orderId);
+                        this.saveCustomers(customers);
+                    }
+                }
+            },
+            
+            // Carrinho
+            getCart: function() {
+                return JSON.parse(localStorage.getItem(this.KEYS.CART)) || [];
+            },
+            
+            saveCart: function(cart) {
+                localStorage.setItem(this.KEYS.CART, JSON.stringify(cart));
+            },
+            
+            clearCart: function() {
+                localStorage.setItem(this.KEYS.CART, JSON.stringify([]));
+            },
+            
+            // Usuário atual
+            getCurrentUser: function() {
+                return JSON.parse(localStorage.getItem(this.KEYS.CURRENT_USER)) || null;
+            },
+            
+            setCurrentUser: function(user) {
+                localStorage.setItem(this.KEYS.CURRENT_USER, JSON.stringify(user));
+            },
+            
+            clearCurrentUser: function() {
+                localStorage.removeItem(this.KEYS.CURRENT_USER);
+            }
+        };
+
+        // Dados dos produtos
+        const productsData = {
+            trufas: [
+                {
+                    id: 1,
+                    name: "Trufa de Ninho e Nutella",
+                    description: "Trufa cremosa com recheio de Ninho e Nutella, coberta com chocolate meio amargo.",
+                    price: 5.00,
+                    sizes: [
+                        { name: "Mini", price: 3.00 },
+                        { name: "Média", price: 5.00 }
+                    ],
+                    stock: 10,
+                    type: "trufa",
+                    image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 2,
+                    name: "Trufa de Brigadeiro",
+                    description: "Clássico brasileiro com recheio de brigadeiro cremoso e casca de chocolate ao leite.",
+                    price: 5.00,
+                    sizes: [
+                        { name: "Mini", price: 3.00 },
+                        { name: "Média", price: 5.00 }
+                    ],
+                    stock: 10,
+                    type: "trufa",
+                    image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 3,
+                    name: "Trufa de Maracujá",
+                    description: "Trufa com recheio azedinho de maracujá e cobertura de chocolate branco.",
+                    price: 5.00,
+                    sizes: [
+                        { name: "Mini", price: 3.00 },
+                        { name: "Média", price: 5.00 }
+                    ],
+                    stock: 10,
+                    type: "trufa",
+                    image: "https://images.unsplash.com/photo-1623334044303-241021148842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 4,
+                    name: "Trufa de Paçoca e Café",
+                    description: "Combinação incrível de paçoca com um toque de café, coberta com chocolate.",
+                    price: 5.00,
+                    sizes: [
+                        { name: "Mini", price: 3.00 },
+                        { name: "Média", price: 5.00 }
+                    ],
+                    stock: 10,
+                    type: "trufa",
+                    image: "https://images.unsplash.com/photo-1590099033615-be195f8d575c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                }
+            ],
+            bolosPote: [
+                {
+                    id: 5,
+                    name: "Bolo de Pote Brigadeiro",
+                    description: "Camadas de bolo de chocolate e brigadeiro cremoso, finalizado com granulado.",
+                    price: 12.00,
+                    stock: 10,
+                    type: "bolo",
+                    image: "https://images.unsplash.com/photo-1621303837174-89787a7d4729?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 6,
+                    name: "Bolo de Pote Ninho com Nutella",
+                    description: "Bolo de baunilha com camadas de creme de Ninho e Nutella.",
+                    price: 12.00,
+                    stock: 10,
+                    type: "bolo",
+                    image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 7,
+                    name: "Bolo de Pote Maracujá",
+                    description: "Bolo de baunilha com recheio de creme de maracujá azedinho.",
+                    price: 12.00,
+                    stock: 10,
+                    type: "bolo",
+                    image: "https://images.unsplash.com/photo-1542826438-bd32f43d626f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                }
+            ],
+            combos: [
+                {
+                    id: 8,
+                    name: "Duo Lagom",
+                    description: "1 Bolo de Pote + 1 Trufa Média à sua escolha",
+                    price: 20.00,
+                    type: "combo",
+                    flavors: {
+                        bolos: ["Brigadeiro", "Ninho com Nutella", "Maracujá"],
+                        trufas: ["Ninho e Nutella", "Brigadeiro", "Maracujá", "Paçoca e Café"]
+                    },
+                    requiredSelections: 2,
+                    stock: 10,
+                    image: "https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 9,
+                    name: "Trio de Médias",
+                    description: "Escolha 3 sabores entre os 5 disponíveis",
+                    price: 15.00,
+                    type: "combo",
+                    flavors: ["Ninho e Nutella", "Brigadeiro", "Maracujá", "Paçoca e Café"],
+                    maxSelections: 3,
+                    requiredSelections: 3,
+                    stock: 10,
+                    image: "https://images.unsplash.com/photo-1559620192-032c64bc86af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 10,
+                    name: "Kit Degustação (5 Minis)",
+                    description: "5 sabores: Ninho, Café, Maracujá, Paçoca e Brigadeiro",
+                    price: 15.00,
+                    type: "combo",
+                    fixedFlavors: ["Ninho e Nutella", "Brigadeiro", "Maracujá", "Paçoca e Café"],
+                    stock: 10,
+                    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                }
+            ]
+        };
+
+        // Estado da aplicação (SITE DO CLIENTE)
+        const AppState = {
+            cart: [],
+            currentUser: null,
+            
+            init: function() {
+                DB.init();
+                this.cart = DB.getCart();
+                this.currentUser = DB.getCurrentUser();
+                
+                // Atualizar interface
+                this.updateUI();
+            },
+            
+            updateUI: function() {
+                const userLoginBtn = document.getElementById('user-login-btn');
+                
+                if (this.currentUser) {
+                    userLoginBtn.innerHTML = '<i class="fas fa-user-check"></i>';
+                    userLoginBtn.title = `Olá, ${this.currentUser.name}`;
+                } else {
+                    userLoginBtn.innerHTML = '<i class="fas fa-user"></i>';
+                    userLoginBtn.title = 'Entrar na Conta';
+                }
+                
+                // Atualizar contador do carrinho
+                this.updateCartCount();
+            },
+            
+            loginClient: function(email, name) {
+                const customer = DB.getOrCreateCustomer(email, name);
+                this.currentUser = {
+                    email: customer.email,
+                    name: customer.name,
+                    id: customer.id
+                };
+                DB.setCurrentUser(this.currentUser);
+                this.updateUI();
+                showMessage('success', `Bem-vindo(a), ${name}!`);
+            },
+            
+            logout: function() {
+                this.currentUser = null;
+                DB.clearCurrentUser();
+                this.updateUI();
+                showMessage('info', 'Logout realizado.');
+            },
+            
+            addToCart: function(product) {
+                // Verificar se o produto já está no carrinho
+                const existingIndex = this.cart.findIndex(item => 
+                    item.id === product.id && 
+                    item.details === product.details
+                );
+                
+                if (existingIndex !== -1) {
+                    // Atualizar quantidade se já existir
+                    this.cart[existingIndex].quantity += product.quantity;
+                } else {
+                    // Adicionar novo produto
+                    this.cart.push(product);
+                }
+                
+                this.saveCart();
+                this.updateCartCount();
+                return true;
+            },
+            
+            removeFromCart: function(index) {
+                this.cart.splice(index, 1);
+                this.saveCart();
+                this.updateCartCount();
+            },
+            
+            clearCart: function() {
+                this.cart = [];
+                this.saveCart();
+                this.updateCartCount();
+            },
+            
+            saveCart: function() {
+                DB.saveCart(this.cart);
+            },
+            
+            updateCartCount: function() {
+                const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+                document.getElementById('cart-count').textContent = totalItems;
+                document.getElementById('cart-float-count').textContent = totalItems;
+            },
+            
+            getCartTotal: function() {
+                return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            }
+        };
+
+        // View Manager para alternar entre loja e histórico
+        const ViewManager = {
+            showStore: function() {
+                document.getElementById('main-store').style.display = 'block';
+                document.getElementById('order-history').style.display = 'none';
+                renderProducts();
+                updateCartDisplay();
+            },
+            
+            showOrderHistory: function() {
+                if (!AppState.currentUser) {
+                    showMessage('error', 'Faça login para ver seu histórico!');
+                    document.getElementById('login-modal').style.display = 'flex';
+                    return;
+                }
+                
+                document.getElementById('main-store').style.display = 'none';
+                document.getElementById('order-history').style.display = 'block';
+                this.renderOrderHistory();
+            },
+            
+            renderOrderHistory: function() {
+                if (!AppState.currentUser) return;
+                
+                const historyList = document.getElementById('history-list');
+                const customer = DB.getCustomers().find(c => c.email === AppState.currentUser.email);
+                
+                if (!customer || customer.orders.length === 0) {
+                    historyList.innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: var(--azul-acinzentado);">
+                            <i class="fas fa-history" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                            <h3>Nenhum pedido encontrado</h3>
+                            <p>Faça seu primeiro pedido para começar seu histórico!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const allOrders = DB.getOrders();
+                const userOrders = allOrders.filter(order => 
+                    order.customerEmail === AppState.currentUser.email
+                ).sort((a, b) => new Date(b.date) - new Date(a.date)); // Mais recentes primeiro
+                
+                historyList.innerHTML = '';
+                
+                userOrders.forEach(order => {
+                    const orderElement = document.createElement('div');
+                    orderElement.style.cssText = `
+                        background-color: var(--branco);
+                        border-radius: 10px;
+                        padding: 20px;
+                        margin-bottom: 20px;
+                        box-shadow: 0 3px 10px rgba(93, 74, 62, 0.08);
+                    `;
+                    
+                    const orderDate = new Date(order.date);
+                    const formattedDate = orderDate.toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    let itemsHtml = '';
+                    order.items.forEach(item => {
+                        itemsHtml += `
+                            <div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--cinza-claro);">
+                                <div>
+                                    <strong>${item.name}</strong>
+                                    ${item.details ? `<div style="font-size: 0.9em; color: var(--azul-acinzentado);">${item.details}</div>` : ''}
+                                </div>
+                                <div>
+                                    ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.quantity * item.price).toFixed(2)}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    const statusText = order.status === 'pending' ? 'Pendente' : 
+                                     order.status === 'confirmed' ? 'Confirmado' : 'Entregue';
+                    const statusColor = order.status === 'pending' ? '#856404' : 
+                                      order.status === 'confirmed' ? '#155724' : '#0C5460';
+                    const statusBg = order.status === 'pending' ? '#FFF3CD' : 
+                                   order.status === 'confirmed' ? '#D4EDDA' : '#D1ECF1';
+                    
+                    orderElement.innerHTML = `
+                        <h3 style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Pedido #${order.id.toString().slice(-6)}</span>
+                            <span style="padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; background-color: ${statusBg}; color: ${statusColor};">
+                                ${statusText}
+                            </span>
+                        </h3>
+                        <div style="font-size: 0.8rem; color: var(--azul-acinzentado); margin-bottom: 15px;">${formattedDate}</div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <strong>Itens:</strong>
+                            <div style="margin-top: 10px;">
+                                ${itemsHtml}
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; padding-top: 15px; border-top: 2px solid var(--cinza-claro);">
+                            <div>
+                                <strong>Total:</strong> R$ ${order.total.toFixed(2)}
+                            </div>
+                            <div>
+                                <strong>Pagamento:</strong> ${order.paymentMethod === 'pix' ? 'Pix' : 'Dinheiro'}
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; font-size: 0.9em; color: var(--azul-acinzentado);">
+                            <strong>Entrega:</strong> ${order.apartment}, Bloco ${order.block}
+                        </div>
+                    `;
+                    
+                    historyList.appendChild(orderElement);
+                });
+            }
+        };
+
+        // Renderização dos produtos
+        function renderProducts() {
+            const products = DB.getProducts();
+            
+            // Renderizar trufas
+            const trufasGrid = document.getElementById('trufas-grid');
+            trufasGrid.innerHTML = '';
+            
+            products.trufas.forEach(trufa => {
+                const productCard = createTrufaCard(trufa);
+                trufasGrid.appendChild(productCard);
+            });
+            
+            // Renderizar bolos de pote
+            const bolosGrid = document.getElementById('bolos-grid');
+            bolosGrid.innerHTML = '';
+            
+            products.bolosPote.forEach(bolo => {
+                const productCard = createBoloCard(bolo);
+                bolosGrid.appendChild(productCard);
+            });
+            
+            // Renderizar combos
+            const combosGrid = document.getElementById('combos-grid');
+            combosGrid.innerHTML = '';
+            
+            products.combos.forEach(combo => {
+                const productCard = createComboCard(combo);
+                combosGrid.appendChild(productCard);
+            });
+        }
+        
+        // Criar card de trufa
+        function createTrufaCard(trufa) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.dataset.id = trufa.id;
+            
+            const isSoldOut = trufa.stock === 0;
+            
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${trufa.image}" alt="${trufa.name}" loading="lazy">
+                    ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${trufa.name}</h3>
+                    <p class="product-description">${trufa.description}</p>
+                    <div class="product-price">R$ ${trufa.price.toFixed(2)}</div>
+                    
+                    <div class="size-selector">
+                        <label>Tamanho:</label>
+                        <div class="size-options">
+                            ${trufa.sizes.map((size, index) => `
+                                <div class="size-option ${index === 1 ? 'selected' : ''}" data-price="${size.price}" data-size="${size.name}">
+                                    ${size.name} - R$ ${size.price.toFixed(2)}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-controls">
+                        <button class="quantity-btn minus">-</button>
+                        <div class="quantity-display">1</div>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    
+                    <div class="stock-info ${trufa.stock <= 3 ? 'low' : ''}">
+                        ${trufa.stock} unidades disponíveis
+                    </div>
+                    
+                    <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''}>
+                        ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
+                    </button>
+                </div>
+            `;
+            
+            // Adicionar event listeners
+            const sizeOptions = card.querySelectorAll('.size-option');
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // Atualizar preço exibido
+                    const priceElement = card.querySelector('.product-price');
+                    const price = parseFloat(this.dataset.price);
+                    priceElement.textContent = `R$ ${price.toFixed(2)}`;
+                });
+            });
+            
+            const minusBtn = card.querySelector('.minus');
+            const plusBtn = card.querySelector('.plus');
+            const quantityDisplay = card.querySelector('.quantity-display');
+            const addToCartBtn = card.querySelector('.add-to-cart');
+            
+            let quantity = 1;
+            
+            minusBtn.addEventListener('click', function() {
+                if (quantity > 1) {
+                    quantity--;
+                    quantityDisplay.textContent = quantity;
+                }
+            });
+            
+            plusBtn.addEventListener('click', function() {
+                if (quantity < trufa.stock) {
+                    quantity++;
+                    quantityDisplay.textContent = quantity;
+                } else {
+                    showMessage('error', 'Quantidade máxima disponível atingida!');
+                }
+            });
+            
+            addToCartBtn.addEventListener('click', function() {
+                const selectedSize = card.querySelector('.size-option.selected').dataset.size;
+                const price = parseFloat(card.querySelector('.size-option.selected').dataset.price);
+                
+                const cartItem = {
+                    id: trufa.id,
+                    name: trufa.name,
+                    price: price,
+                    quantity: quantity,
+                    details: `Tamanho: ${selectedSize}`,
+                    type: trufa.type
+                };
+                
+                if (AppState.addToCart(cartItem)) {
+                    // Atualizar estoque no banco de dados
+                    const newStock = DB.updateProductStock(trufa.id, quantity);
+                    
+                    if (newStock >= 0) {
+                        // Atualizar estoque exibido
+                        const stockInfo = card.querySelector('.stock-info');
+                        stockInfo.textContent = `${newStock} unidades disponíveis`;
+                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
+                        
+                        // Desabilitar botão se esgotado
+                        if (newStock === 0) {
+                            addToCartBtn.textContent = 'ESGOTADO';
+                            addToCartBtn.disabled = true;
+                            
+                            // Adicionar badge de esgotado
+                            const productImage = card.querySelector('.product-image');
+                            if (!productImage.querySelector('.sold-out-badge')) {
+                                const soldOutBadge = document.createElement('div');
+                                soldOutBadge.className = 'sold-out-badge';
+                                soldOutBadge.textContent = 'ESGOTADO';
+                                productImage.appendChild(soldOutBadge);
+                            }
+                        }
+                    }
+                    
+                    // Resetar quantidade
+                    quantity = 1;
+                    quantityDisplay.textContent = '1';
+                    
+                    showMessage('success', `${cartItem.quantity} ${trufa.name} (${selectedSize}) adicionado(s) ao carrinho!`);
+                }
+            });
+            
+            return card;
+        }
+        
+        // Criar card de bolo de pote
+        function createBoloCard(bolo) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.dataset.id = bolo.id;
+            
+            const isSoldOut = bolo.stock === 0;
+            
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${bolo.image}" alt="${bolo.name}" loading="lazy">
+                    ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${bolo.name}</h3>
+                    <p class="product-description">${bolo.description}</p>
+                    <div class="product-price">R$ ${bolo.price.toFixed(2)}</div>
+                    
+                    <div class="quantity-controls">
+                        <button class="quantity-btn minus">-</button>
+                        <div class="quantity-display">1</div>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    
+                    <div class="stock-info ${bolo.stock <= 3 ? 'low' : ''}">
+                        ${bolo.stock} unidades disponíveis
+                    </div>
+                    
+                    <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''}>
+                        ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
+                    </button>
+                </div>
+            `;
+            
+            // Adicionar event listeners
+            const minusBtn = card.querySelector('.minus');
+            const plusBtn = card.querySelector('.plus');
+            const quantityDisplay = card.querySelector('.quantity-display');
+            const addToCartBtn = card.querySelector('.add-to-cart');
+            
+            let quantity = 1;
+            
+            minusBtn.addEventListener('click', function() {
+                if (quantity > 1) {
+                    quantity--;
+                    quantityDisplay.textContent = quantity;
+                }
+            });
+            
+            plusBtn.addEventListener('click', function() {
+                if (quantity < bolo.stock) {
+                    quantity++;
+                    quantityDisplay.textContent = quantity;
+                } else {
+                    showMessage('error', 'Quantidade máxima disponível atingida!');
+                }
+            });
+            
+            addToCartBtn.addEventListener('click', function() {
+                const cartItem = {
+                    id: bolo.id,
+                    name: bolo.name,
+                    price: bolo.price,
+                    quantity: quantity,
+                    type: bolo.type
+                };
+                
+                if (AppState.addToCart(cartItem)) {
+                    // Atualizar estoque no banco de dados
+                    const newStock = DB.updateProductStock(bolo.id, quantity);
+                    
+                    if (newStock >= 0) {
+                        // Atualizar estoque exibido
+                        const stockInfo = card.querySelector('.stock-info');
+                        stockInfo.textContent = `${newStock} unidades disponíveis`;
+                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
+                        
+                        // Desabilitar botão se esgotado
+                        if (newStock === 0) {
+                            addToCartBtn.textContent = 'ESGOTADO';
+                            addToCartBtn.disabled = true;
+                            
+                            // Adicionar badge de esgotado
+                            const productImage = card.querySelector('.product-image');
+                            if (!productImage.querySelector('.sold-out-badge')) {
+                                const soldOutBadge = document.createElement('div');
+                                soldOutBadge.className = 'sold-out-badge';
+                                soldOutBadge.textContent = 'ESGOTADO';
+                                productImage.appendChild(soldOutBadge);
+                            }
+                        }
+                    }
+                    
+                    // Resetar quantidade
+                    quantity = 1;
+                    quantityDisplay.textContent = '1';
+                    
+                    showMessage('success', `${cartItem.quantity} ${bolo.name} adicionado(s) ao carrinho!`);
+                }
+            });
+            
+            return card;
+        }
+        
+        // Criar card de combo
+        function createComboCard(combo) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.dataset.id = combo.id;
+            
+            const isSoldOut = combo.stock === 0;
+            
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${combo.image}" alt="${combo.name}" loading="lazy">
+                    ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${combo.name}</h3>
+                    <p class="product-description">${combo.description}</p>
+                    <div class="product-price">R$ ${combo.price.toFixed(2)}</div>
+                    
+                    <div class="flavor-selector" id="flavor-selector-${combo.id}">
+                        ${combo.type === 'combo' && combo.name === 'Duo Lagom' ? `
+                            <label>Escolha o sabor do bolo:</label>
+                            <div class="flavor-options" id="bolo-options-${combo.id}">
+                                ${combo.flavors.bolos.map(flavor => `
+                                    <div class="flavor-option" data-type="bolo" data-flavor="${flavor}">
+                                        ${flavor}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="selection-hint">(Selecione 1 opção)</div>
+                            <label style="margin-top: 10px;">Escolha o sabor da trufa:</label>
+                            <div class="flavor-options" id="trufa-options-${combo.id}">
+                                ${combo.flavors.trufas.map(flavor => `
+                                    <div class="flavor-option" data-type="trufa" data-flavor="${flavor}">
+                                        ${flavor}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="selection-hint">(Selecione 1 opção)</div>
+                            <div class="required-message" id="required-message-${combo.id}">Selecione 1 bolo e 1 trufa para adicionar ao carrinho</div>
+                        ` : ''}
+                        
+                        ${combo.type === 'combo' && combo.name === 'Trio de Médias' ? `
+                            <label>Escolha 3 sabores:</label>
+                            <div class="flavor-options" id="trio-flavors-${combo.id}">
+                                ${combo.flavors.map(flavor => `
+                                    <div class="flavor-option" data-flavor="${flavor}">
+                                        ${flavor}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="selection-hint">(Selecione exatamente 3 opções)</div>
+                            <div class="required-message" id="required-message-${combo.id}">Selecione exatamente 3 sabores para adicionar ao carrinho</div>
+                        ` : ''}
+                        
+                        ${combo.type === 'combo' && combo.name === 'Kit Degustação (5 Minis)' ? `
+                            <label>Sabores incluídos:</label>
+                            <div class="flavor-options">
+                                ${combo.fixedFlavors.map(flavor => `
+                                    <div class="flavor-option selected disabled" data-flavor="${flavor}">
+                                        ${flavor}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="selection-hint">(Kit fixo com 5 sabores)</div>
+                        ` : ''}
+                    </div>
+                    
+                    <div class="quantity-controls">
+                        <button class="quantity-btn minus">-</button>
+                        <div class="quantity-display">1</div>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    
+                    <div class="stock-info ${combo.stock <= 3 ? 'low' : ''}">
+                        ${combo.stock} unidades disponíveis
+                    </div>
+                    
+                    <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''} id="add-to-cart-${combo.id}">
+                        ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
+                    </button>
+                </div>
+            `;
+            
+            // Adicionar event listeners para seleção de sabores
+            if (combo.name === 'Duo Lagom') {
+                const boloOptions = card.querySelectorAll(`#bolo-options-${combo.id} .flavor-option`);
+                const trufaOptions = card.querySelectorAll(`#trufa-options-${combo.id} .flavor-option`);
+                const requiredMessage = card.querySelector(`#required-message-${combo.id}`);
+                const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
+                
+                // Inicialmente desabilitar botão até que as seleções sejam feitas
+                if (addToCartBtn && !isSoldOut) {
+                    addToCartBtn.disabled = true;
+                    addToCartBtn.style.opacity = '0.7';
+                }
+                
+                // Função para verificar se as seleções estão completas
+                function checkDuoSelections() {
+                    const selectedBolo = card.querySelector(`#bolo-options-${combo.id} .flavor-option.selected`);
+                    const selectedTrufa = card.querySelector(`#trufa-options-${combo.id} .flavor-option.selected`);
+                    
+                    const isComplete = selectedBolo && selectedTrufa;
+                    
+                    if (addToCartBtn && !isSoldOut) {
+                        addToCartBtn.disabled = !isComplete;
+                        addToCartBtn.style.opacity = isComplete ? '1' : '0.7';
+                    }
+                    
+                    if (requiredMessage) {
+                        requiredMessage.style.display = isComplete ? 'none' : 'block';
+                    }
+                    
+                    return isComplete;
+                }
+                
+                // Event listeners para seleção de bolo
+                boloOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Remover seleção de outros bolos
+                        boloOptions.forEach(opt => opt.classList.remove('selected'));
+                        // Selecionar este bolo
+                        this.classList.add('selected');
+                        checkDuoSelections();
+                    });
+                });
+                
+                // Event listeners para seleção de trufa
+                trufaOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Remover seleção de outras trufas
+                        trufaOptions.forEach(opt => opt.classList.remove('selected'));
+                        // Selecionar esta trufa
+                        this.classList.add('selected');
+                        checkDuoSelections();
+                    });
+                });
+                
+                // Verificar inicialmente
+                checkDuoSelections();
+                
+            } else if (combo.name === 'Trio de Médias') {
+                const flavorOptions = card.querySelectorAll(`#trio-flavors-${combo.id} .flavor-option`);
+                const requiredMessage = card.querySelector(`#required-message-${combo.id}`);
+                const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
+                
+                // Inicialmente desabilitar botão até que as seleções sejam feitas
+                if (addToCartBtn && !isSoldOut) {
+                    addToCartBtn.disabled = true;
+                    addToCartBtn.style.opacity = '0.7';
+                }
+                
+                let selectedCount = 0;
+                
+                // Função para verificar se as seleções estão completas
+                function checkTrioSelections() {
+                    const isComplete = selectedCount === 3;
+                    
+                    if (addToCartBtn && !isSoldOut) {
+                        addToCartBtn.disabled = !isComplete;
+                        addToCartBtn.style.opacity = isComplete ? '1' : '0.7';
+                    }
+                    
+                    if (requiredMessage) {
+                        requiredMessage.style.display = isComplete ? 'none' : 'block';
+                    }
+                    
+                    return isComplete;
+                }
+                
+                // Event listeners para seleção de sabores
+                flavorOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        if (this.classList.contains('selected')) {
+                            // Deselecionar
+                            this.classList.remove('selected');
+                            selectedCount--;
+                        } else {
+                            // Verificar se já selecionou o máximo
+                            if (selectedCount < 3) {
+                                this.classList.add('selected');
+                                selectedCount++;
+                            } else {
+                                showMessage('error', 'Máximo de 3 sabores selecionados!');
+                                return;
+                            }
+                        }
+                        checkTrioSelections();
+                    });
+                });
+                
+                // Verificar inicialmente
+                checkTrioSelections();
+            }
+            
+            // Adicionar event listeners para quantidade
+            const minusBtn = card.querySelector('.minus');
+            const plusBtn = card.querySelector('.plus');
+            const quantityDisplay = card.querySelector('.quantity-display');
+            const addToCartBtn = card.querySelector('.add-to-cart');
+            
+            let quantity = 1;
+            
+            minusBtn.addEventListener('click', function() {
+                if (quantity > 1) {
+                    quantity--;
+                    quantityDisplay.textContent = quantity;
+                }
+            });
+            
+            plusBtn.addEventListener('click', function() {
+                if (quantity < combo.stock) {
+                    quantity++;
+                    quantityDisplay.textContent = quantity;
+                } else {
+                    showMessage('error', 'Quantidade máxima disponível atingida!');
+                }
+            });
+            
+            addToCartBtn.addEventListener('click', function() {
+                let cartItem = {
+                    id: combo.id,
+                    name: combo.name,
+                    price: combo.price,
+                    quantity: quantity,
+                    type: combo.type,
+                    details: ''
+                };
+                
+                // Verificar se as seleções necessárias foram feitas
+                if (combo.name === 'Duo Lagom') {
+                    const selectedBolo = card.querySelector(`#bolo-options-${combo.id} .flavor-option.selected`);
+                    const selectedTrufa = card.querySelector(`#trufa-options-${combo.id} .flavor-option.selected`);
+                    
+                    if (!selectedBolo || !selectedTrufa) {
+                        showMessage('error', 'Por favor, selecione 1 bolo e 1 trufa!');
+                        return;
+                    }
+                    
+                    cartItem.details = `Bolo: ${selectedBolo.dataset.flavor}, Trufa: ${selectedTrufa.dataset.flavor}`;
+                    
+                } else if (combo.name === 'Trio de Médias') {
+                    const selectedOptions = card.querySelectorAll(`#trio-flavors-${combo.id} .flavor-option.selected`);
+                    
+                    if (selectedOptions.length !== 3) {
+                        showMessage('error', 'Por favor, selecione exatamente 3 sabores!');
+                        return;
+                    }
+                    
+                    const selectedFlavors = Array.from(selectedOptions).map(opt => opt.dataset.flavor);
+                    cartItem.details = `Sabores: ${selectedFlavors.join(', ')}`;
+                    
+                } else if (combo.name === 'Kit Degustação (5 Minis)') {
+                    cartItem.details = `Sabores: ${combo.fixedFlavors.join(', ')}`;
+                }
+                
+                if (AppState.addToCart(cartItem)) {
+                    // Atualizar estoque no banco de dados
+                    const newStock = DB.updateProductStock(combo.id, quantity);
+                    
+                    if (newStock >= 0) {
+                        // Atualizar estoque exibido
+                        const stockInfo = card.querySelector('.stock-info');
+                        stockInfo.textContent = `${newStock} unidades disponíveis`;
+                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
+                        
+                        // Desabilitar botão se esgotado
+                        if (newStock === 0) {
+                            addToCartBtn.textContent = 'ESGOTADO';
+                            addToCartBtn.disabled = true;
+                            
+                            // Adicionar badge de esgotado
+                            const productImage = card.querySelector('.product-image');
+                            if (!productImage.querySelector('.sold-out-badge')) {
+                                const soldOutBadge = document.createElement('div');
+                                soldOutBadge.className = 'sold-out-badge';
+                                soldOutBadge.textContent = 'ESGOTADO';
+                                productImage.appendChild(soldOutBadge);
+                            }
+                        }
+                    }
+                    
+                    // Resetar quantidade
+                    quantity = 1;
+                    quantityDisplay.textContent = '1';
+                    
+                    showMessage('success', `${cartItem.quantity} ${combo.name} adicionado(s) ao carrinho!`);
+                }
+            });
+            
+            return card;
+        }
+
+        // Atualizar display do carrinho
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            
+            if (AppState.cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: var(--azul-acinzentado); padding: 20px;">Seu carrinho está vazio</p>';
+            } else {
+                AppState.cart.forEach((item, index) => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    itemElement.innerHTML = `
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <div class="cart-item-details">${item.details || ''}</div>
+                            <div>Quantidade: ${item.quantity}</div>
+                        </div>
+                        <div class="cart-item-price">R$ ${(item.price * item.quantity).toFixed(2)}</div>
+                        <button class="cart-item-remove" data-index="${index}">&times;</button>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                });
+                
+                // Adicionar event listeners para remover itens
+                document.querySelectorAll('.cart-item-remove').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        AppState.removeFromCart(index);
+                        updateCartDisplay();
+                        showMessage('info', 'Item removido do carrinho!');
+                    });
+                });
+            }
+            
+            // Atualizar total
+            const total = AppState.getCartTotal();
+            document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
+        }
+
+        // Função para abrir o WhatsApp com o pedido
+        function sendToWhatsApp() {
+            if (AppState.cart.length === 0) {
+                showMessage('error', 'Adicione itens ao carrinho antes de finalizar o pedido!');
+                return;
+            }
+            
+            const name = document.getElementById('customer-name').value.trim();
+            const apartment = document.getElementById('apartment').value.trim();
+            const block = document.getElementById('block').value.trim();
+            const paymentMethod = document.getElementById('payment-method').value;
+            
+            if (!name || !apartment || !block || !paymentMethod) {
+                showMessage('error', 'Preencha todos os dados do pedido!');
+                return;
+            }
+            
+            // Formatar mensagem do pedido
+            let message = `*NOVO PEDIDO - Doce Lagom*\n\n`;
+            message += `*Cliente:* ${name}\n`;
+            message += `*Apartamento:* ${apartment}\n`;
+            message += `*Bloco:* ${block}\n`;
+            message += `*Forma de pagamento:* ${paymentMethod === 'pix' ? 'Pix' : 'Dinheiro'}\n\n`;
+            message += `*Itens do pedido:*\n`;
+            
+            AppState.cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name}${item.details ? ` (${item.details})` : ''}\n`;
+                message += `   Quantidade: ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            
+            const total = AppState.getCartTotal();
+            message += `\n*Total: R$ ${total.toFixed(2)}*\n\n`;
+            message += `_Pedido realizado através do site Doce Lagom_`;
+            
+            // Criar pedido no banco de dados
+            const order = {
+                customerName: name,
+                customerEmail: AppState.currentUser ? AppState.currentUser.email : 'guest@example.com',
+                apartment: apartment,
+                block: block,
+                paymentMethod: paymentMethod,
+                items: [...AppState.cart],
+                total: total,
+                status: 'pending'
+            };
+            
+            const savedOrder = DB.addOrder(order);
+            
+            // Adicionar pedido ao cliente se estiver logado
+            if (AppState.currentUser) {
+                DB.addOrderToCustomer(AppState.currentUser.email, savedOrder.id);
+            }
+            
+            // Codificar a mensagem para URL
+            const encodedMessage = encodeURIComponent(message);
+            const phoneNumber = '558393889854';
+            const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Abrir WhatsApp
+            window.open(url, '_blank');
+            
+            // Limpar carrinho após envio
+            AppState.clearCart();
+            updateCartDisplay();
+            
+            // Fechar carrinho
+            document.getElementById('cart-sidebar').classList.remove('open');
+            
+            showMessage('success', 'Pedido enviado com sucesso!');
+        }
+
+        // Função para mostrar mensagens
+        function showMessage(type, text) {
+            // Remover mensagem anterior se existir
+            const existingMessage = document.querySelector('.message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Criar nova mensagem
+            const message = document.createElement('div');
+            message.className = `message ${type}`;
+            message.textContent = text;
+            
+            document.body.appendChild(message);
+            
+            // Remover após 3 segundos
+            setTimeout(() => {
+                if (message.parentNode) {
+                    message.remove();
+                }
+            }, 3000);
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar sistemas
+            AppState.init();
+            ViewManager.showStore();
+            updateCartDisplay();
+            
+            // Event Listeners para navegação
+            document.getElementById('user-history-btn').addEventListener('click', function() {
+                ViewManager.showOrderHistory();
+            });
+            
+            document.getElementById('user-login-btn').addEventListener('click', function() {
+                document.getElementById('login-modal').style.display = 'flex';
+            });
+            
+            document.getElementById('back-to-shop').addEventListener('click', function() {
+                ViewManager.showStore();
+            });
+            
+            // Login do cliente
+            document.getElementById('client-login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('client-email').value.trim();
+                const name = document.getElementById('client-name').value.trim();
+                
+                if (!email || !name) {
+                    document.getElementById('client-error').textContent = 'Por favor, preencha todos os campos!';
+                    document.getElementById('client-error').style.display = 'block';
+                    return;
+                }
+                
+                AppState.loginClient(email, name);
+                document.getElementById('login-modal').style.display = 'none';
+                this.reset();
+                document.getElementById('client-error').style.display = 'none';
+            });
+            
+            // Fechar modal ao clicar fora
+            document.getElementById('login-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                    document.getElementById('client-error').style.display = 'none';
+                }
+            });
+            
+            // Event listeners do carrinho
+            document.getElementById('view-cart').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('cart-sidebar').classList.add('open');
+            });
+            
+            document.getElementById('cart-float').addEventListener('click', function() {
+                document.getElementById('cart-sidebar').classList.add('open');
+            });
+            
+            document.getElementById('close-cart').addEventListener('click', function() {
+                document.getElementById('cart-sidebar').classList.remove('open');
+            });
+            
+            document.getElementById('clear-cart-btn').addEventListener('click', function() {
+                AppState.clearCart();
+                updateCartDisplay();
+                showMessage('info', 'Carrinho limpo!');
+            });
+            
+            // Seleção de método de pagamento
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    document.getElementById('payment-method').value = this.dataset.payment;
+                });
+            });
+            
+            // Enviar pedido via WhatsApp
+            document.getElementById('checkout-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                sendToWhatsApp();
+            });
+            
+            // Botão flutuante do WhatsApp
+            document.getElementById('whatsapp-float').addEventListener('click', function() {
+                const phoneNumber = '558393889854';
+                const url = `https://wa.me/${phoneNumber}`;
+                window.open(url, '_blank');
+            });
+            
+            // Fechar carrinho ao clicar fora (em dispositivos móveis)
+            document.addEventListener('click', function(e) {
+                const cartSidebar = document.getElementById('cart-sidebar');
+                if (cartSidebar.classList.contains('open') && 
+                    !cartSidebar.contains(e.target) && 
+                    !e.target.closest('#view-cart') && 
+                    !e.target.closest('#cart-float')) {
+                    cartSidebar.classList.remove('open');
+                }
+            });
+            
+            // Atualizar navegação ativa ao rolar
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        currentSection = '#' + section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Navegação suave
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            // Remover classe active de todos os links
+                            document.querySelectorAll('.nav-link').forEach(link => {
+                                link.classList.remove('active');
+                            });
+                            
+                            // Adicionar classe active ao link clicado
+                            this.classList.add('active');
+                            
+                            // Rolar suavemente para a seção
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
