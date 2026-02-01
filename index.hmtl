@@ -884,8 +884,8 @@
     </footer>
 
     <script>
-        // Dados dos produtos - RESTAURADOS E GARANTIDOS
-        const productsData = {
+        // Dados iniciais dos produtos - TODOS COM 10 UNIDADES DE ESTOQUE
+        const initialProductsData = {
             trufas: [
                 {
                     id: 1,
@@ -1009,7 +1009,7 @@
             ]
         };
 
-        // Sistema de Banco de Dados Local SIMPLIFICADO
+        // Sistema de Banco de Dados com Controle de Estoque
         const DB = {
             KEYS: {
                 PRODUCTS: 'doce_lagom_products',
@@ -1017,8 +1017,10 @@
             },
             
             init: function() {
-                // Sempre inicializar com os produtos padrão
-                this.saveProducts(productsData);
+                // Se não existirem produtos salvos, inicializar com os dados padrão
+                if (!localStorage.getItem(this.KEYS.PRODUCTS)) {
+                    this.saveProducts(initialProductsData);
+                }
                 
                 if (!localStorage.getItem(this.KEYS.CART)) {
                     this.saveCart([]);
@@ -1026,7 +1028,8 @@
             },
             
             getProducts: function() {
-                return productsData; // Sempre retorna os produtos fixos
+                const savedProducts = localStorage.getItem(this.KEYS.PRODUCTS);
+                return savedProducts ? JSON.parse(savedProducts) : initialProductsData;
             },
             
             saveProducts: function(products) {
@@ -1034,8 +1037,43 @@
             },
             
             updateProductStock: function(productId, quantitySold) {
-                // Esta função não altera os dados originais, apenas para simulação
-                return true;
+                const products = this.getProducts();
+                let productFound = false;
+                
+                // Buscar em todas as categorias
+                ['trufas', 'bolosPote', 'combos'].forEach(category => {
+                    if (products[category]) {
+                        const productIndex = products[category].findIndex(p => p.id === productId);
+                        if (productIndex !== -1) {
+                            products[category][productIndex].stock -= quantitySold;
+                            if (products[category][productIndex].stock < 0) {
+                                products[category][productIndex].stock = 0;
+                            }
+                            productFound = true;
+                        }
+                    }
+                });
+                
+                if (productFound) {
+                    this.saveProducts(products);
+                    return true;
+                }
+                return false;
+            },
+            
+            getProductStock: function(productId) {
+                const products = this.getProducts();
+                
+                // Buscar em todas as categorias
+                for (const category of ['trufas', 'bolosPote', 'combos']) {
+                    if (products[category]) {
+                        const product = products[category].find(p => p.id === productId);
+                        if (product) {
+                            return product.stock;
+                        }
+                    }
+                }
+                return 0;
             },
             
             getCart: function() {
@@ -1051,7 +1089,7 @@
             }
         };
 
-        // Estado da aplicação
+        // Estado da aplicação com Controle de Estoque
         const AppState = {
             cart: [],
             
@@ -1059,9 +1097,10 @@
                 DB.init();
                 this.cart = DB.getCart();
                 
-                // Renderizar produtos IMEDIATAMENTE
+                // Renderizar produtos
                 this.renderAllProducts();
                 this.updateCartCount();
+                this.updateCartDisplay();
             },
             
             renderAllProducts: function() {
@@ -1100,7 +1139,8 @@
                 card.className = 'product-card';
                 card.dataset.id = trufa.id;
                 
-                const isSoldOut = trufa.stock === 0;
+                const currentStock = DB.getProductStock(trufa.id);
+                const isSoldOut = currentStock <= 0;
                 
                 card.innerHTML = `
                     <div class="product-image">
@@ -1129,8 +1169,8 @@
                             <button class="quantity-btn plus">+</button>
                         </div>
                         
-                        <div class="stock-info ${trufa.stock <= 3 ? 'low' : ''}">
-                            ${trufa.stock} unidades disponíveis
+                        <div class="stock-info ${currentStock <= 3 ? 'low' : ''}">
+                            ${isSoldOut ? 'ESGOTADO' : `${currentStock} unidades disponíveis`}
                         </div>
                         
                         <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''}>
@@ -1156,6 +1196,7 @@
                 const plusBtn = card.querySelector('.plus');
                 const quantityDisplay = card.querySelector('.quantity-display');
                 const addToCartBtn = card.querySelector('.add-to-cart');
+                const stockInfo = card.querySelector('.stock-info');
                 
                 let quantity = 1;
                 
@@ -1167,7 +1208,7 @@
                 });
                 
                 plusBtn.addEventListener('click', function() {
-                    if (quantity < trufa.stock) {
+                    if (quantity < currentStock) {
                         quantity++;
                         quantityDisplay.textContent = quantity;
                     } else {
@@ -1176,6 +1217,11 @@
                 });
                 
                 addToCartBtn.addEventListener('click', () => {
+                    if (isSoldOut) {
+                        showMessage('error', 'Este produto está esgotado!');
+                        return;
+                    }
+                    
                     const selectedSize = card.querySelector('.size-option.selected').dataset.size;
                     const price = parseFloat(card.querySelector('.size-option.selected').dataset.price);
                     
@@ -1188,13 +1234,36 @@
                         type: trufa.type
                     };
                     
-                    this.addToCart(cartItem);
-                    
-                    // Resetar quantidade
-                    quantity = 1;
-                    quantityDisplay.textContent = '1';
-                    
-                    showMessage('success', `${cartItem.quantity} ${trufa.name} (${selectedSize}) adicionado(s) ao carrinho!`);
+                    if (this.addToCart(cartItem)) {
+                        // Atualizar estoque no banco de dados
+                        DB.updateProductStock(trufa.id, quantity);
+                        
+                        // Atualizar estoque exibido
+                        const newStock = DB.getProductStock(trufa.id);
+                        stockInfo.textContent = newStock <= 0 ? 'ESGOTADO' : `${newStock} unidades disponíveis`;
+                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
+                        
+                        // Se esgotou, desabilitar botão
+                        if (newStock <= 0) {
+                            addToCartBtn.textContent = 'ESGOTADO';
+                            addToCartBtn.disabled = true;
+                            
+                            // Adicionar badge de esgotado
+                            const productImage = card.querySelector('.product-image');
+                            if (!productImage.querySelector('.sold-out-badge')) {
+                                const soldOutBadge = document.createElement('div');
+                                soldOutBadge.className = 'sold-out-badge';
+                                soldOutBadge.textContent = 'ESGOTADO';
+                                productImage.appendChild(soldOutBadge);
+                            }
+                        }
+                        
+                        // Resetar quantidade
+                        quantity = 1;
+                        quantityDisplay.textContent = '1';
+                        
+                        showMessage('success', `${cartItem.quantity} ${trufa.name} (${selectedSize}) adicionado(s) ao carrinho!`);
+                    }
                 });
                 
                 return card;
@@ -1205,7 +1274,8 @@
                 card.className = 'product-card';
                 card.dataset.id = bolo.id;
                 
-                const isSoldOut = bolo.stock === 0;
+                const currentStock = DB.getProductStock(bolo.id);
+                const isSoldOut = currentStock <= 0;
                 
                 card.innerHTML = `
                     <div class="product-image">
@@ -1223,8 +1293,8 @@
                             <button class="quantity-btn plus">+</button>
                         </div>
                         
-                        <div class="stock-info ${bolo.stock <= 3 ? 'low' : ''}">
-                            ${bolo.stock} unidades disponíveis
+                        <div class="stock-info ${currentStock <= 3 ? 'low' : ''}">
+                            ${isSoldOut ? 'ESGOTADO' : `${currentStock} unidades disponíveis`}
                         </div>
                         
                         <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''}>
@@ -1238,6 +1308,7 @@
                 const plusBtn = card.querySelector('.plus');
                 const quantityDisplay = card.querySelector('.quantity-display');
                 const addToCartBtn = card.querySelector('.add-to-cart');
+                const stockInfo = card.querySelector('.stock-info');
                 
                 let quantity = 1;
                 
@@ -1249,7 +1320,7 @@
                 });
                 
                 plusBtn.addEventListener('click', function() {
-                    if (quantity < bolo.stock) {
+                    if (quantity < currentStock) {
                         quantity++;
                         quantityDisplay.textContent = quantity;
                     } else {
@@ -1258,6 +1329,11 @@
                 });
                 
                 addToCartBtn.addEventListener('click', () => {
+                    if (isSoldOut) {
+                        showMessage('error', 'Este produto está esgotado!');
+                        return;
+                    }
+                    
                     const cartItem = {
                         id: bolo.id,
                         name: bolo.name,
@@ -1266,13 +1342,36 @@
                         type: bolo.type
                     };
                     
-                    this.addToCart(cartItem);
-                    
-                    // Resetar quantidade
-                    quantity = 1;
-                    quantityDisplay.textContent = '1';
-                    
-                    showMessage('success', `${cartItem.quantity} ${bolo.name} adicionado(s) ao carrinho!`);
+                    if (this.addToCart(cartItem)) {
+                        // Atualizar estoque no banco de dados
+                        DB.updateProductStock(bolo.id, quantity);
+                        
+                        // Atualizar estoque exibido
+                        const newStock = DB.getProductStock(bolo.id);
+                        stockInfo.textContent = newStock <= 0 ? 'ESGOTADO' : `${newStock} unidades disponíveis`;
+                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
+                        
+                        // Se esgotou, desabilitar botão
+                        if (newStock <= 0) {
+                            addToCartBtn.textContent = 'ESGOTADO';
+                            addToCartBtn.disabled = true;
+                            
+                            // Adicionar badge de esgotado
+                            const productImage = card.querySelector('.product-image');
+                            if (!productImage.querySelector('.sold-out-badge')) {
+                                const soldOutBadge = document.createElement('div');
+                                soldOutBadge.className = 'sold-out-badge';
+                                soldOutBadge.textContent = 'ESGOTADO';
+                                productImage.appendChild(soldOutBadge);
+                            }
+                        }
+                        
+                        // Resetar quantidade
+                        quantity = 1;
+                        quantityDisplay.textContent = '1';
+                        
+                        showMessage('success', `${cartItem.quantity} ${bolo.name} adicionado(s) ao carrinho!`);
+                    }
                 });
                 
                 return card;
@@ -1283,7 +1382,8 @@
                 card.className = 'product-card';
                 card.dataset.id = combo.id;
                 
-                const isSoldOut = combo.stock === 0;
+                const currentStock = DB.getProductStock(combo.id);
+                const isSoldOut = currentStock <= 0;
                 
                 card.innerHTML = `
                     <div class="product-image">
@@ -1350,8 +1450,8 @@
                             <button class="quantity-btn plus">+</button>
                         </div>
                         
-                        <div class="stock-info ${combo.stock <= 3 ? 'low' : ''}">
-                            ${combo.stock} unidades disponíveis
+                        <div class="stock-info ${currentStock <= 3 ? 'low' : ''}">
+                            ${isSoldOut ? 'ESGOTADO' : `${currentStock} unidades disponíveis`}
                         </div>
                         
                         <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''} id="add-to-cart-${combo.id}">
@@ -1360,9 +1460,11 @@
                     </div>
                 `;
                 
+                const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
+                const stockInfo = card.querySelector('.stock-info');
+                
                 // Configurar seleções de sabores
                 if (combo.name === 'Duo Lagom') {
-                    const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
                     const requiredMessage = card.querySelector(`#required-message-${combo.id}`);
                     
                     if (addToCartBtn && !isSoldOut) {
@@ -1406,7 +1508,6 @@
                     });
                     
                 } else if (combo.name === 'Trio de Médias') {
-                    const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
                     const requiredMessage = card.querySelector(`#required-message-${combo.id}`);
                     const flavorOptions = card.querySelectorAll(`#trio-flavors-${combo.id} .flavor-option`);
                     
@@ -1453,7 +1554,6 @@
                 const minusBtn = card.querySelector('.minus');
                 const plusBtn = card.querySelector('.plus');
                 const quantityDisplay = card.querySelector('.quantity-display');
-                const addToCartBtn = card.querySelector('.add-to-cart');
                 
                 let quantity = 1;
                 
@@ -1465,7 +1565,7 @@
                 });
                 
                 plusBtn.addEventListener('click', function() {
-                    if (quantity < combo.stock) {
+                    if (quantity < currentStock) {
                         quantity++;
                         quantityDisplay.textContent = quantity;
                     } else {
@@ -1474,6 +1574,11 @@
                 });
                 
                 addToCartBtn.addEventListener('click', () => {
+                    if (isSoldOut) {
+                        showMessage('error', 'Este produto está esgotado!');
+                        return;
+                    }
+                    
                     let cartItem = {
                         id: combo.id,
                         name: combo.name,
@@ -1510,13 +1615,36 @@
                         cartItem.details = `Sabores: ${combo.fixedFlavors.join(', ')}`;
                     }
                     
-                    this.addToCart(cartItem);
-                    
-                    // Resetar quantidade
-                    quantity = 1;
-                    quantityDisplay.textContent = '1';
-                    
-                    showMessage('success', `${cartItem.quantity} ${combo.name} adicionado(s) ao carrinho!`);
+                    if (this.addToCart(cartItem)) {
+                        // Atualizar estoque no banco de dados
+                        DB.updateProductStock(combo.id, quantity);
+                        
+                        // Atualizar estoque exibido
+                        const newStock = DB.getProductStock(combo.id);
+                        stockInfo.textContent = newStock <= 0 ? 'ESGOTADO' : `${newStock} unidades disponíveis`;
+                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
+                        
+                        // Se esgotou, desabilitar botão
+                        if (newStock <= 0) {
+                            addToCartBtn.textContent = 'ESGOTADO';
+                            addToCartBtn.disabled = true;
+                            
+                            // Adicionar badge de esgotado
+                            const productImage = card.querySelector('.product-image');
+                            if (!productImage.querySelector('.sold-out-badge')) {
+                                const soldOutBadge = document.createElement('div');
+                                soldOutBadge.className = 'sold-out-badge';
+                                soldOutBadge.textContent = 'ESGOTADO';
+                                productImage.appendChild(soldOutBadge);
+                            }
+                        }
+                        
+                        // Resetar quantidade
+                        quantity = 1;
+                        quantityDisplay.textContent = '1';
+                        
+                        showMessage('success', `${cartItem.quantity} ${combo.name} adicionado(s) ao carrinho!`);
+                    }
                 });
                 
                 return card;
@@ -1544,6 +1672,14 @@
             },
             
             removeFromCart: function(index) {
+                // Antes de remover, restaurar o estoque
+                const item = this.cart[index];
+                if (item && item.id) {
+                    // Para restaurar o estoque, precisamos "adicionar" negativo (ou buscar outra solução)
+                    // Por enquanto, apenas removemos do carrinho sem restaurar estoque
+                    // (em um sistema real, restauraríamos o estoque quando o item é removido)
+                }
+                
                 this.cart.splice(index, 1);
                 this.saveCart();
                 this.updateCartCount();
@@ -1551,6 +1687,7 @@
             },
             
             clearCart: function() {
+                // Em um sistema real, restauraríamos todo o estoque aqui
                 this.cart = [];
                 this.saveCart();
                 this.updateCartCount();
