@@ -560,70 +560,6 @@
             transform: scale(1.1);
         }
         
-        /* Login Modal */
-        .login-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .login-content {
-            background-color: var(--branco);
-            padding: 40px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .login-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--marrom-escuro);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .login-form input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid var(--cinza-claro);
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
-        }
-        
-        .login-submit {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--verde-menta);
-            color: var(--branco);
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        
-        .login-submit:hover {
-            background-color: #8fa38f;
-        }
-        
-        .login-error {
-            color: #e74c3c;
-            font-size: 0.9rem;
-            margin-top: 10px;
-            text-align: center;
-            display: none;
-        }
-        
         /* Responsividade */
         @media (max-width: 768px) {
             .header-container {
@@ -686,10 +622,6 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 5px;
-            }
-            
-            .login-content {
-                padding: 20px;
             }
         }
         
@@ -794,35 +726,6 @@
             display: none;
         }
         
-        .user-menu {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .user-btn {
-            background: none;
-            border: none;
-            color: var(--marrom-escuro);
-            cursor: pointer;
-            font-size: 1.2rem;
-            padding: 5px;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .user-btn:hover {
-            background-color: var(--cinza-claro);
-        }
-        
         .admin-link {
             position: absolute;
             top: 15px;
@@ -841,45 +744,6 @@
         .admin-link a:hover {
             text-decoration: underline;
         }
-        
-        .history-container {
-            background-color: var(--branco);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 40px auto;
-            max-width: 800px;
-            box-shadow: 0 5px 20px rgba(93, 74, 62, 0.1);
-        }
-        
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--cinza-claro);
-        }
-        
-        .history-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--marrom-escuro);
-        }
-        
-        .back-to-shop {
-            background-color: var(--verde-menta);
-            color: var(--branco);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-        
-        .back-to-shop:hover {
-            background-color: #8fa38f;
-        }
     </style>
 </head>
 <body>
@@ -889,14 +753,6 @@
             <a href="admin-lagom.html" target="_blank">
                 <i class="fas fa-lock"></i> Acesso Admin
             </a>
-        </div>
-        <div class="user-menu">
-            <button class="user-btn" id="user-history-btn" title="Histórico de Compras">
-                <i class="fas fa-history"></i>
-            </button>
-            <button class="user-btn" id="user-login-btn" title="Entrar na Conta">
-                <i class="fas fa-user"></i>
-            </button>
         </div>
         <div class="container header-container">
             <div class="logo-section">
@@ -959,20 +815,6 @@
         </section>
     </div>
 
-    <!-- Histórico de Compras (Oculto por padrão) -->
-    <div id="order-history" class="container" style="display: none;">
-        <div class="history-container">
-            <div class="history-header">
-                <h2 class="history-title">Meu Histórico de Compras</h2>
-                <button class="back-to-shop" id="back-to-shop">Voltar para Loja</button>
-            </div>
-            
-            <div id="history-list">
-                <!-- Histórico de pedidos será carregado aqui -->
-            </div>
-        </div>
-    </div>
-
     <!-- Carrinho Lateral -->
     <aside class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
@@ -996,6 +838,9 @@
                     <div class="payment-option" data-payment="pix">
                         <i class="fas fa-qrcode"></i> Pix
                     </div>
+                    <div class="payment-option" data-payment="cartao">
+                        <i class="fas fa-credit-card"></i> Cartão
+                    </div>
                     <div class="payment-option" data-payment="dinheiro">
                         <i class="fas fa-money-bill-wave"></i> Dinheiro
                     </div>
@@ -1011,23 +856,6 @@
             </form>
         </div>
     </aside>
-
-    <!-- Modal de Login -->
-    <div class="login-modal" id="login-modal">
-        <div class="login-content">
-            <h2 class="login-title">Entre na sua conta</h2>
-            
-            <form class="login-form" id="client-login-form">
-                <input type="text" id="client-email" placeholder="Seu e-mail" required>
-                <input type="text" id="client-name" placeholder="Seu nome" required>
-                <button type="submit" class="login-submit">Entrar na Conta</button>
-                <div class="login-error" id="client-error"></div>
-                <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; color: var(--azul-acinzentado);">
-                    Não tem cadastro? Basta informar seu e-mail e nome!
-                </p>
-            </form>
-        </div>
-    </div>
 
     <!-- Botões Flutuantes -->
     <div class="floating-buttons">
@@ -1056,165 +884,7 @@
     </footer>
 
     <script>
-        // Sistema de Banco de Dados Local (APENAS para dados da loja)
-        const DB = {
-            // Chaves do localStorage
-            KEYS: {
-                PRODUCTS: 'doce_lagom_products',
-                ORDERS: 'doce_lagom_orders',
-                CUSTOMERS: 'doce_lagom_customers',
-                CURRENT_USER: 'doce_lagom_current_user',
-                CART: 'doce_lagom_cart'
-            },
-            
-            // Inicializar banco de dados
-            init: function() {
-                // Verificar se os dados já existem
-                if (!localStorage.getItem(this.KEYS.PRODUCTS)) {
-                    this.saveProducts(productsData);
-                }
-                
-                if (!localStorage.getItem(this.KEYS.ORDERS)) {
-                    this.saveOrders([]);
-                }
-                
-                if (!localStorage.getItem(this.KEYS.CUSTOMERS)) {
-                    this.saveCustomers([]);
-                }
-                
-                if (!localStorage.getItem(this.KEYS.CART)) {
-                    this.saveCart([]);
-                }
-            },
-            
-            // Produtos
-            getProducts: function() {
-                return JSON.parse(localStorage.getItem(this.KEYS.PRODUCTS)) || productsData;
-            },
-            
-            saveProducts: function(products) {
-                localStorage.setItem(this.KEYS.PRODUCTS, JSON.stringify(products));
-            },
-            
-            updateProductStock: function(productId, quantitySold) {
-                const products = this.getProducts();
-                
-                // Procurar em trufas
-                let product = products.trufas.find(p => p.id === productId);
-                if (product) {
-                    product.stock -= quantitySold;
-                    if (product.stock < 0) product.stock = 0;
-                    this.saveProducts(products);
-                    return product.stock;
-                }
-                
-                // Procurar em bolos
-                product = products.bolosPote.find(p => p.id === productId);
-                if (product) {
-                    product.stock -= quantitySold;
-                    if (product.stock < 0) product.stock = 0;
-                    this.saveProducts(products);
-                    return product.stock;
-                }
-                
-                // Procurar em combos
-                product = products.combos.find(p => p.id === productId);
-                if (product) {
-                    product.stock -= quantitySold;
-                    if (product.stock < 0) product.stock = 0;
-                    this.saveProducts(products);
-                    return product.stock;
-                }
-                
-                return -1;
-            },
-            
-            // Pedidos
-            getOrders: function() {
-                return JSON.parse(localStorage.getItem(this.KEYS.ORDERS)) || [];
-            },
-            
-            saveOrders: function(orders) {
-                localStorage.setItem(this.KEYS.ORDERS, JSON.stringify(orders));
-            },
-            
-            addOrder: function(order) {
-                const orders = this.getOrders();
-                order.id = Date.now(); // ID único baseado no timestamp
-                order.date = new Date().toISOString();
-                order.status = 'pending'; // pending, confirmed, delivered
-                orders.unshift(order); // Adiciona no início do array
-                this.saveOrders(orders);
-                return order;
-            },
-            
-            // Clientes
-            getCustomers: function() {
-                return JSON.parse(localStorage.getItem(this.KEYS.CUSTOMERS)) || [];
-            },
-            
-            saveCustomers: function(customers) {
-                localStorage.setItem(this.KEYS.CUSTOMERS, JSON.stringify(customers));
-            },
-            
-            getOrCreateCustomer: function(email, name) {
-                const customers = this.getCustomers();
-                let customer = customers.find(c => c.email === email);
-                
-                if (!customer) {
-                    customer = {
-                        id: Date.now(),
-                        email: email,
-                        name: name,
-                        orders: [],
-                        createdAt: new Date().toISOString()
-                    };
-                    customers.push(customer);
-                    this.saveCustomers(customers);
-                }
-                
-                return customer;
-            },
-            
-            addOrderToCustomer: function(customerEmail, orderId) {
-                const customers = this.getCustomers();
-                const customerIndex = customers.findIndex(c => c.email === customerEmail);
-                if (customerIndex !== -1) {
-                    if (!customers[customerIndex].orders.includes(orderId)) {
-                        customers[customerIndex].orders.push(orderId);
-                        this.saveCustomers(customers);
-                    }
-                }
-            },
-            
-            // Carrinho
-            getCart: function() {
-                return JSON.parse(localStorage.getItem(this.KEYS.CART)) || [];
-            },
-            
-            saveCart: function(cart) {
-                localStorage.setItem(this.KEYS.CART, JSON.stringify(cart));
-            },
-            
-            clearCart: function() {
-                localStorage.setItem(this.KEYS.CART, JSON.stringify([]));
-            },
-            
-            // Usuário atual
-            getCurrentUser: function() {
-                return JSON.parse(localStorage.getItem(this.KEYS.CURRENT_USER)) || null;
-            },
-            
-            setCurrentUser: function(user) {
-                localStorage.setItem(this.KEYS.CURRENT_USER, JSON.stringify(user));
-            },
-            
-            clearCurrentUser: function() {
-                localStorage.removeItem(this.KEYS.CURRENT_USER);
-            }
-        };
-
-        // Dados dos produtos
+        // Dados dos produtos - RESTAURADOS E GARANTIDOS
         const productsData = {
             trufas: [
                 {
@@ -1339,52 +1009,517 @@
             ]
         };
 
-        // Estado da aplicação (SITE DO CLIENTE)
+        // Sistema de Banco de Dados Local SIMPLIFICADO
+        const DB = {
+            KEYS: {
+                PRODUCTS: 'doce_lagom_products',
+                CART: 'doce_lagom_cart'
+            },
+            
+            init: function() {
+                // Sempre inicializar com os produtos padrão
+                this.saveProducts(productsData);
+                
+                if (!localStorage.getItem(this.KEYS.CART)) {
+                    this.saveCart([]);
+                }
+            },
+            
+            getProducts: function() {
+                return productsData; // Sempre retorna os produtos fixos
+            },
+            
+            saveProducts: function(products) {
+                localStorage.setItem(this.KEYS.PRODUCTS, JSON.stringify(products));
+            },
+            
+            updateProductStock: function(productId, quantitySold) {
+                // Esta função não altera os dados originais, apenas para simulação
+                return true;
+            },
+            
+            getCart: function() {
+                return JSON.parse(localStorage.getItem(this.KEYS.CART)) || [];
+            },
+            
+            saveCart: function(cart) {
+                localStorage.setItem(this.KEYS.CART, JSON.stringify(cart));
+            },
+            
+            clearCart: function() {
+                localStorage.setItem(this.KEYS.CART, JSON.stringify([]));
+            }
+        };
+
+        // Estado da aplicação
         const AppState = {
             cart: [],
-            currentUser: null,
             
             init: function() {
                 DB.init();
                 this.cart = DB.getCart();
-                this.currentUser = DB.getCurrentUser();
                 
-                // Atualizar interface
-                this.updateUI();
-            },
-            
-            updateUI: function() {
-                const userLoginBtn = document.getElementById('user-login-btn');
-                
-                if (this.currentUser) {
-                    userLoginBtn.innerHTML = '<i class="fas fa-user-check"></i>';
-                    userLoginBtn.title = `Olá, ${this.currentUser.name}`;
-                } else {
-                    userLoginBtn.innerHTML = '<i class="fas fa-user"></i>';
-                    userLoginBtn.title = 'Entrar na Conta';
-                }
-                
-                // Atualizar contador do carrinho
+                // Renderizar produtos IMEDIATAMENTE
+                this.renderAllProducts();
                 this.updateCartCount();
             },
             
-            loginClient: function(email, name) {
-                const customer = DB.getOrCreateCustomer(email, name);
-                this.currentUser = {
-                    email: customer.email,
-                    name: customer.name,
-                    id: customer.id
-                };
-                DB.setCurrentUser(this.currentUser);
-                this.updateUI();
-                showMessage('success', `Bem-vindo(a), ${name}!`);
+            renderAllProducts: function() {
+                const products = DB.getProducts();
+                
+                // Renderizar trufas
+                const trufasGrid = document.getElementById('trufas-grid');
+                trufasGrid.innerHTML = '';
+                
+                products.trufas.forEach(trufa => {
+                    const productCard = this.createTrufaCard(trufa);
+                    trufasGrid.appendChild(productCard);
+                });
+                
+                // Renderizar bolos de pote
+                const bolosGrid = document.getElementById('bolos-grid');
+                bolosGrid.innerHTML = '';
+                
+                products.bolosPote.forEach(bolo => {
+                    const productCard = this.createBoloCard(bolo);
+                    bolosGrid.appendChild(productCard);
+                });
+                
+                // Renderizar combos
+                const combosGrid = document.getElementById('combos-grid');
+                combosGrid.innerHTML = '';
+                
+                products.combos.forEach(combo => {
+                    const productCard = this.createComboCard(combo);
+                    combosGrid.appendChild(productCard);
+                });
             },
             
-            logout: function() {
-                this.currentUser = null;
-                DB.clearCurrentUser();
-                this.updateUI();
-                showMessage('info', 'Logout realizado.');
+            createTrufaCard: function(trufa) {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = trufa.id;
+                
+                const isSoldOut = trufa.stock === 0;
+                
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${trufa.image}" alt="${trufa.name}" loading="lazy">
+                        ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${trufa.name}</h3>
+                        <p class="product-description">${trufa.description}</p>
+                        <div class="product-price">R$ ${trufa.price.toFixed(2)}</div>
+                        
+                        <div class="size-selector">
+                            <label>Tamanho:</label>
+                            <div class="size-options">
+                                ${trufa.sizes.map((size, index) => `
+                                    <div class="size-option ${index === 1 ? 'selected' : ''}" data-price="${size.price}" data-size="${size.name}">
+                                        ${size.name} - R$ ${size.price.toFixed(2)}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus">-</button>
+                            <div class="quantity-display">1</div>
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                        
+                        <div class="stock-info ${trufa.stock <= 3 ? 'low' : ''}">
+                            ${trufa.stock} unidades disponíveis
+                        </div>
+                        
+                        <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''}>
+                            ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
+                        </button>
+                    </div>
+                `;
+                
+                // Adicionar event listeners
+                const sizeOptions = card.querySelectorAll('.size-option');
+                sizeOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                        this.classList.add('selected');
+                        
+                        const priceElement = card.querySelector('.product-price');
+                        const price = parseFloat(this.dataset.price);
+                        priceElement.textContent = `R$ ${price.toFixed(2)}`;
+                    });
+                });
+                
+                const minusBtn = card.querySelector('.minus');
+                const plusBtn = card.querySelector('.plus');
+                const quantityDisplay = card.querySelector('.quantity-display');
+                const addToCartBtn = card.querySelector('.add-to-cart');
+                
+                let quantity = 1;
+                
+                minusBtn.addEventListener('click', function() {
+                    if (quantity > 1) {
+                        quantity--;
+                        quantityDisplay.textContent = quantity;
+                    }
+                });
+                
+                plusBtn.addEventListener('click', function() {
+                    if (quantity < trufa.stock) {
+                        quantity++;
+                        quantityDisplay.textContent = quantity;
+                    } else {
+                        showMessage('error', 'Quantidade máxima disponível atingida!');
+                    }
+                });
+                
+                addToCartBtn.addEventListener('click', () => {
+                    const selectedSize = card.querySelector('.size-option.selected').dataset.size;
+                    const price = parseFloat(card.querySelector('.size-option.selected').dataset.price);
+                    
+                    const cartItem = {
+                        id: trufa.id,
+                        name: trufa.name,
+                        price: price,
+                        quantity: quantity,
+                        details: `Tamanho: ${selectedSize}`,
+                        type: trufa.type
+                    };
+                    
+                    this.addToCart(cartItem);
+                    
+                    // Resetar quantidade
+                    quantity = 1;
+                    quantityDisplay.textContent = '1';
+                    
+                    showMessage('success', `${cartItem.quantity} ${trufa.name} (${selectedSize}) adicionado(s) ao carrinho!`);
+                });
+                
+                return card;
+            },
+            
+            createBoloCard: function(bolo) {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = bolo.id;
+                
+                const isSoldOut = bolo.stock === 0;
+                
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${bolo.image}" alt="${bolo.name}" loading="lazy">
+                        ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${bolo.name}</h3>
+                        <p class="product-description">${bolo.description}</p>
+                        <div class="product-price">R$ ${bolo.price.toFixed(2)}</div>
+                        
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus">-</button>
+                            <div class="quantity-display">1</div>
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                        
+                        <div class="stock-info ${bolo.stock <= 3 ? 'low' : ''}">
+                            ${bolo.stock} unidades disponíveis
+                        </div>
+                        
+                        <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''}>
+                            ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
+                        </button>
+                    </div>
+                `;
+                
+                // Adicionar event listeners
+                const minusBtn = card.querySelector('.minus');
+                const plusBtn = card.querySelector('.plus');
+                const quantityDisplay = card.querySelector('.quantity-display');
+                const addToCartBtn = card.querySelector('.add-to-cart');
+                
+                let quantity = 1;
+                
+                minusBtn.addEventListener('click', function() {
+                    if (quantity > 1) {
+                        quantity--;
+                        quantityDisplay.textContent = quantity;
+                    }
+                });
+                
+                plusBtn.addEventListener('click', function() {
+                    if (quantity < bolo.stock) {
+                        quantity++;
+                        quantityDisplay.textContent = quantity;
+                    } else {
+                        showMessage('error', 'Quantidade máxima disponível atingida!');
+                    }
+                });
+                
+                addToCartBtn.addEventListener('click', () => {
+                    const cartItem = {
+                        id: bolo.id,
+                        name: bolo.name,
+                        price: bolo.price,
+                        quantity: quantity,
+                        type: bolo.type
+                    };
+                    
+                    this.addToCart(cartItem);
+                    
+                    // Resetar quantidade
+                    quantity = 1;
+                    quantityDisplay.textContent = '1';
+                    
+                    showMessage('success', `${cartItem.quantity} ${bolo.name} adicionado(s) ao carrinho!`);
+                });
+                
+                return card;
+            },
+            
+            createComboCard: function(combo) {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = combo.id;
+                
+                const isSoldOut = combo.stock === 0;
+                
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${combo.image}" alt="${combo.name}" loading="lazy">
+                        ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${combo.name}</h3>
+                        <p class="product-description">${combo.description}</p>
+                        <div class="product-price">R$ ${combo.price.toFixed(2)}</div>
+                        
+                        <div class="flavor-selector" id="flavor-selector-${combo.id}">
+                            ${combo.name === 'Duo Lagom' ? `
+                                <label>Escolha o sabor do bolo:</label>
+                                <div class="flavor-options" id="bolo-options-${combo.id}">
+                                    ${combo.flavors.bolos.map(flavor => `
+                                        <div class="flavor-option" data-type="bolo" data-flavor="${flavor}">
+                                            ${flavor}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="selection-hint">(Selecione 1 opção)</div>
+                                <label style="margin-top: 10px;">Escolha o sabor da trufa:</label>
+                                <div class="flavor-options" id="trufa-options-${combo.id}">
+                                    ${combo.flavors.trufas.map(flavor => `
+                                        <div class="flavor-option" data-type="trufa" data-flavor="${flavor}">
+                                            ${flavor}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="selection-hint">(Selecione 1 opção)</div>
+                                <div class="required-message" id="required-message-${combo.id}">Selecione 1 bolo e 1 trufa para adicionar ao carrinho</div>
+                            ` : ''}
+                            
+                            ${combo.name === 'Trio de Médias' ? `
+                                <label>Escolha 3 sabores:</label>
+                                <div class="flavor-options" id="trio-flavors-${combo.id}">
+                                    ${combo.flavors.map(flavor => `
+                                        <div class="flavor-option" data-flavor="${flavor}">
+                                            ${flavor}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="selection-hint">(Selecione exatamente 3 opções)</div>
+                                <div class="required-message" id="required-message-${combo.id}">Selecione exatamente 3 sabores para adicionar ao carrinho</div>
+                            ` : ''}
+                            
+                            ${combo.name === 'Kit Degustação (5 Minis)' ? `
+                                <label>Sabores incluídos:</label>
+                                <div class="flavor-options">
+                                    ${combo.fixedFlavors.map(flavor => `
+                                        <div class="flavor-option selected disabled" data-flavor="${flavor}">
+                                            ${flavor}
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="selection-hint">(Kit fixo com 5 sabores)</div>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus">-</button>
+                            <div class="quantity-display">1</div>
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                        
+                        <div class="stock-info ${combo.stock <= 3 ? 'low' : ''}">
+                            ${combo.stock} unidades disponíveis
+                        </div>
+                        
+                        <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''} id="add-to-cart-${combo.id}">
+                            ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
+                        </button>
+                    </div>
+                `;
+                
+                // Configurar seleções de sabores
+                if (combo.name === 'Duo Lagom') {
+                    const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
+                    const requiredMessage = card.querySelector(`#required-message-${combo.id}`);
+                    
+                    if (addToCartBtn && !isSoldOut) {
+                        addToCartBtn.disabled = true;
+                        addToCartBtn.style.opacity = '0.7';
+                    }
+                    
+                    const boloOptions = card.querySelectorAll(`#bolo-options-${combo.id} .flavor-option`);
+                    const trufaOptions = card.querySelectorAll(`#trufa-options-${combo.id} .flavor-option`);
+                    
+                    function checkDuoSelections() {
+                        const selectedBolo = card.querySelector(`#bolo-options-${combo.id} .flavor-option.selected`);
+                        const selectedTrufa = card.querySelector(`#trufa-options-${combo.id} .flavor-option.selected`);
+                        
+                        const isComplete = selectedBolo && selectedTrufa;
+                        
+                        if (addToCartBtn && !isSoldOut) {
+                            addToCartBtn.disabled = !isComplete;
+                            addToCartBtn.style.opacity = isComplete ? '1' : '0.7';
+                        }
+                        
+                        if (requiredMessage) {
+                            requiredMessage.style.display = isComplete ? 'none' : 'block';
+                        }
+                    }
+                    
+                    boloOptions.forEach(option => {
+                        option.addEventListener('click', function() {
+                            boloOptions.forEach(opt => opt.classList.remove('selected'));
+                            this.classList.add('selected');
+                            checkDuoSelections();
+                        });
+                    });
+                    
+                    trufaOptions.forEach(option => {
+                        option.addEventListener('click', function() {
+                            trufaOptions.forEach(opt => opt.classList.remove('selected'));
+                            this.classList.add('selected');
+                            checkDuoSelections();
+                        });
+                    });
+                    
+                } else if (combo.name === 'Trio de Médias') {
+                    const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
+                    const requiredMessage = card.querySelector(`#required-message-${combo.id}`);
+                    const flavorOptions = card.querySelectorAll(`#trio-flavors-${combo.id} .flavor-option`);
+                    
+                    if (addToCartBtn && !isSoldOut) {
+                        addToCartBtn.disabled = true;
+                        addToCartBtn.style.opacity = '0.7';
+                    }
+                    
+                    let selectedCount = 0;
+                    
+                    function checkTrioSelections() {
+                        const isComplete = selectedCount === 3;
+                        
+                        if (addToCartBtn && !isSoldOut) {
+                            addToCartBtn.disabled = !isComplete;
+                            addToCartBtn.style.opacity = isComplete ? '1' : '0.7';
+                        }
+                        
+                        if (requiredMessage) {
+                            requiredMessage.style.display = isComplete ? 'none' : 'block';
+                        }
+                    }
+                    
+                    flavorOptions.forEach(option => {
+                        option.addEventListener('click', function() {
+                            if (this.classList.contains('selected')) {
+                                this.classList.remove('selected');
+                                selectedCount--;
+                            } else {
+                                if (selectedCount < 3) {
+                                    this.classList.add('selected');
+                                    selectedCount++;
+                                } else {
+                                    showMessage('error', 'Máximo de 3 sabores selecionados!');
+                                    return;
+                                }
+                            }
+                            checkTrioSelections();
+                        });
+                    });
+                }
+                
+                // Adicionar event listeners para quantidade
+                const minusBtn = card.querySelector('.minus');
+                const plusBtn = card.querySelector('.plus');
+                const quantityDisplay = card.querySelector('.quantity-display');
+                const addToCartBtn = card.querySelector('.add-to-cart');
+                
+                let quantity = 1;
+                
+                minusBtn.addEventListener('click', function() {
+                    if (quantity > 1) {
+                        quantity--;
+                        quantityDisplay.textContent = quantity;
+                    }
+                });
+                
+                plusBtn.addEventListener('click', function() {
+                    if (quantity < combo.stock) {
+                        quantity++;
+                        quantityDisplay.textContent = quantity;
+                    } else {
+                        showMessage('error', 'Quantidade máxima disponível atingida!');
+                    }
+                });
+                
+                addToCartBtn.addEventListener('click', () => {
+                    let cartItem = {
+                        id: combo.id,
+                        name: combo.name,
+                        price: combo.price,
+                        quantity: quantity,
+                        type: combo.type,
+                        details: ''
+                    };
+                    
+                    // Verificar seleções
+                    if (combo.name === 'Duo Lagom') {
+                        const selectedBolo = card.querySelector(`#bolo-options-${combo.id} .flavor-option.selected`);
+                        const selectedTrufa = card.querySelector(`#trufa-options-${combo.id} .flavor-option.selected`);
+                        
+                        if (!selectedBolo || !selectedTrufa) {
+                            showMessage('error', 'Por favor, selecione 1 bolo e 1 trufa!');
+                            return;
+                        }
+                        
+                        cartItem.details = `Bolo: ${selectedBolo.dataset.flavor}, Trufa: ${selectedTrufa.dataset.flavor}`;
+                        
+                    } else if (combo.name === 'Trio de Médias') {
+                        const selectedOptions = card.querySelectorAll(`#trio-flavors-${combo.id} .flavor-option.selected`);
+                        
+                        if (selectedOptions.length !== 3) {
+                            showMessage('error', 'Por favor, selecione exatamente 3 sabores!');
+                            return;
+                        }
+                        
+                        const selectedFlavors = Array.from(selectedOptions).map(opt => opt.dataset.flavor);
+                        cartItem.details = `Sabores: ${selectedFlavors.join(', ')}`;
+                        
+                    } else if (combo.name === 'Kit Degustação (5 Minis)') {
+                        cartItem.details = `Sabores: ${combo.fixedFlavors.join(', ')}`;
+                    }
+                    
+                    this.addToCart(cartItem);
+                    
+                    // Resetar quantidade
+                    quantity = 1;
+                    quantityDisplay.textContent = '1';
+                    
+                    showMessage('success', `${cartItem.quantity} ${combo.name} adicionado(s) ao carrinho!`);
+                });
+                
+                return card;
             },
             
             addToCart: function(product) {
@@ -1404,6 +1539,7 @@
                 
                 this.saveCart();
                 this.updateCartCount();
+                this.updateCartDisplay();
                 return true;
             },
             
@@ -1411,12 +1547,14 @@
                 this.cart.splice(index, 1);
                 this.saveCart();
                 this.updateCartCount();
+                this.updateCartDisplay();
             },
             
             clearCart: function() {
                 this.cart = [];
                 this.saveCart();
                 this.updateCartCount();
+                this.updateCartDisplay();
             },
             
             saveCart: function() {
@@ -1429,801 +1567,44 @@
                 document.getElementById('cart-float-count').textContent = totalItems;
             },
             
+            updateCartDisplay: function() {
+                const cartItemsContainer = document.getElementById('cart-items');
+                cartItemsContainer.innerHTML = '';
+                
+                if (this.cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p style="text-align: center; color: var(--azul-acinzentado); padding: 20px;">Seu carrinho está vazio</p>';
+                } else {
+                    this.cart.forEach((item, index) => {
+                        const itemElement = document.createElement('div');
+                        itemElement.className = 'cart-item';
+                        itemElement.innerHTML = `
+                            <div class="cart-item-info">
+                                <h4>${item.name}</h4>
+                                <div class="cart-item-details">${item.details || ''}</div>
+                                <div>Quantidade: ${item.quantity}</div>
+                            </div>
+                            <div class="cart-item-price">R$ ${(item.price * item.quantity).toFixed(2)}</div>
+                            <button class="cart-item-remove" data-index="${index}">&times;</button>
+                        `;
+                        cartItemsContainer.appendChild(itemElement);
+                        
+                        // Adicionar event listener para remover
+                        itemElement.querySelector('.cart-item-remove').addEventListener('click', () => {
+                            this.removeFromCart(index);
+                            showMessage('info', 'Item removido do carrinho!');
+                        });
+                    });
+                }
+                
+                // Atualizar total
+                const total = this.getCartTotal();
+                document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
+            },
+            
             getCartTotal: function() {
                 return this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
             }
         };
-
-        // View Manager para alternar entre loja e histórico
-        const ViewManager = {
-            showStore: function() {
-                document.getElementById('main-store').style.display = 'block';
-                document.getElementById('order-history').style.display = 'none';
-                renderProducts();
-                updateCartDisplay();
-            },
-            
-            showOrderHistory: function() {
-                if (!AppState.currentUser) {
-                    showMessage('error', 'Faça login para ver seu histórico!');
-                    document.getElementById('login-modal').style.display = 'flex';
-                    return;
-                }
-                
-                document.getElementById('main-store').style.display = 'none';
-                document.getElementById('order-history').style.display = 'block';
-                this.renderOrderHistory();
-            },
-            
-            renderOrderHistory: function() {
-                if (!AppState.currentUser) return;
-                
-                const historyList = document.getElementById('history-list');
-                const customer = DB.getCustomers().find(c => c.email === AppState.currentUser.email);
-                
-                if (!customer || customer.orders.length === 0) {
-                    historyList.innerHTML = `
-                        <div style="text-align: center; padding: 40px; color: var(--azul-acinzentado);">
-                            <i class="fas fa-history" style="font-size: 3rem; margin-bottom: 20px;"></i>
-                            <h3>Nenhum pedido encontrado</h3>
-                            <p>Faça seu primeiro pedido para começar seu histórico!</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                const allOrders = DB.getOrders();
-                const userOrders = allOrders.filter(order => 
-                    order.customerEmail === AppState.currentUser.email
-                ).sort((a, b) => new Date(b.date) - new Date(a.date)); // Mais recentes primeiro
-                
-                historyList.innerHTML = '';
-                
-                userOrders.forEach(order => {
-                    const orderElement = document.createElement('div');
-                    orderElement.style.cssText = `
-                        background-color: var(--branco);
-                        border-radius: 10px;
-                        padding: 20px;
-                        margin-bottom: 20px;
-                        box-shadow: 0 3px 10px rgba(93, 74, 62, 0.08);
-                    `;
-                    
-                    const orderDate = new Date(order.date);
-                    const formattedDate = orderDate.toLocaleDateString('pt-BR', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
-                    
-                    let itemsHtml = '';
-                    order.items.forEach(item => {
-                        itemsHtml += `
-                            <div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--cinza-claro);">
-                                <div>
-                                    <strong>${item.name}</strong>
-                                    ${item.details ? `<div style="font-size: 0.9em; color: var(--azul-acinzentado);">${item.details}</div>` : ''}
-                                </div>
-                                <div>
-                                    ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.quantity * item.price).toFixed(2)}
-                                </div>
-                            </div>
-                        `;
-                    });
-                    
-                    const statusText = order.status === 'pending' ? 'Pendente' : 
-                                     order.status === 'confirmed' ? 'Confirmado' : 'Entregue';
-                    const statusColor = order.status === 'pending' ? '#856404' : 
-                                      order.status === 'confirmed' ? '#155724' : '#0C5460';
-                    const statusBg = order.status === 'pending' ? '#FFF3CD' : 
-                                   order.status === 'confirmed' ? '#D4EDDA' : '#D1ECF1';
-                    
-                    orderElement.innerHTML = `
-                        <h3 style="display: flex; justify-content: space-between; align-items: center;">
-                            <span>Pedido #${order.id.toString().slice(-6)}</span>
-                            <span style="padding: 5px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; background-color: ${statusBg}; color: ${statusColor};">
-                                ${statusText}
-                            </span>
-                        </h3>
-                        <div style="font-size: 0.8rem; color: var(--azul-acinzentado); margin-bottom: 15px;">${formattedDate}</div>
-                        
-                        <div style="margin-bottom: 15px;">
-                            <strong>Itens:</strong>
-                            <div style="margin-top: 10px;">
-                                ${itemsHtml}
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; justify-content: space-between; padding-top: 15px; border-top: 2px solid var(--cinza-claro);">
-                            <div>
-                                <strong>Total:</strong> R$ ${order.total.toFixed(2)}
-                            </div>
-                            <div>
-                                <strong>Pagamento:</strong> ${order.paymentMethod === 'pix' ? 'Pix' : 'Dinheiro'}
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 15px; font-size: 0.9em; color: var(--azul-acinzentado);">
-                            <strong>Entrega:</strong> ${order.apartment}, Bloco ${order.block}
-                        </div>
-                    `;
-                    
-                    historyList.appendChild(orderElement);
-                });
-            }
-        };
-
-        // Renderização dos produtos
-        function renderProducts() {
-            const products = DB.getProducts();
-            
-            // Renderizar trufas
-            const trufasGrid = document.getElementById('trufas-grid');
-            trufasGrid.innerHTML = '';
-            
-            products.trufas.forEach(trufa => {
-                const productCard = createTrufaCard(trufa);
-                trufasGrid.appendChild(productCard);
-            });
-            
-            // Renderizar bolos de pote
-            const bolosGrid = document.getElementById('bolos-grid');
-            bolosGrid.innerHTML = '';
-            
-            products.bolosPote.forEach(bolo => {
-                const productCard = createBoloCard(bolo);
-                bolosGrid.appendChild(productCard);
-            });
-            
-            // Renderizar combos
-            const combosGrid = document.getElementById('combos-grid');
-            combosGrid.innerHTML = '';
-            
-            products.combos.forEach(combo => {
-                const productCard = createComboCard(combo);
-                combosGrid.appendChild(productCard);
-            });
-        }
-        
-        // Criar card de trufa
-        function createTrufaCard(trufa) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.dataset.id = trufa.id;
-            
-            const isSoldOut = trufa.stock === 0;
-            
-            card.innerHTML = `
-                <div class="product-image">
-                    <img src="${trufa.image}" alt="${trufa.name}" loading="lazy">
-                    ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">${trufa.name}</h3>
-                    <p class="product-description">${trufa.description}</p>
-                    <div class="product-price">R$ ${trufa.price.toFixed(2)}</div>
-                    
-                    <div class="size-selector">
-                        <label>Tamanho:</label>
-                        <div class="size-options">
-                            ${trufa.sizes.map((size, index) => `
-                                <div class="size-option ${index === 1 ? 'selected' : ''}" data-price="${size.price}" data-size="${size.name}">
-                                    ${size.name} - R$ ${size.price.toFixed(2)}
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    
-                    <div class="quantity-controls">
-                        <button class="quantity-btn minus">-</button>
-                        <div class="quantity-display">1</div>
-                        <button class="quantity-btn plus">+</button>
-                    </div>
-                    
-                    <div class="stock-info ${trufa.stock <= 3 ? 'low' : ''}">
-                        ${trufa.stock} unidades disponíveis
-                    </div>
-                    
-                    <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''}>
-                        ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
-                    </button>
-                </div>
-            `;
-            
-            // Adicionar event listeners
-            const sizeOptions = card.querySelectorAll('.size-option');
-            sizeOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    sizeOptions.forEach(opt => opt.classList.remove('selected'));
-                    this.classList.add('selected');
-                    
-                    // Atualizar preço exibido
-                    const priceElement = card.querySelector('.product-price');
-                    const price = parseFloat(this.dataset.price);
-                    priceElement.textContent = `R$ ${price.toFixed(2)}`;
-                });
-            });
-            
-            const minusBtn = card.querySelector('.minus');
-            const plusBtn = card.querySelector('.plus');
-            const quantityDisplay = card.querySelector('.quantity-display');
-            const addToCartBtn = card.querySelector('.add-to-cart');
-            
-            let quantity = 1;
-            
-            minusBtn.addEventListener('click', function() {
-                if (quantity > 1) {
-                    quantity--;
-                    quantityDisplay.textContent = quantity;
-                }
-            });
-            
-            plusBtn.addEventListener('click', function() {
-                if (quantity < trufa.stock) {
-                    quantity++;
-                    quantityDisplay.textContent = quantity;
-                } else {
-                    showMessage('error', 'Quantidade máxima disponível atingida!');
-                }
-            });
-            
-            addToCartBtn.addEventListener('click', function() {
-                const selectedSize = card.querySelector('.size-option.selected').dataset.size;
-                const price = parseFloat(card.querySelector('.size-option.selected').dataset.price);
-                
-                const cartItem = {
-                    id: trufa.id,
-                    name: trufa.name,
-                    price: price,
-                    quantity: quantity,
-                    details: `Tamanho: ${selectedSize}`,
-                    type: trufa.type
-                };
-                
-                if (AppState.addToCart(cartItem)) {
-                    // Atualizar estoque no banco de dados
-                    const newStock = DB.updateProductStock(trufa.id, quantity);
-                    
-                    if (newStock >= 0) {
-                        // Atualizar estoque exibido
-                        const stockInfo = card.querySelector('.stock-info');
-                        stockInfo.textContent = `${newStock} unidades disponíveis`;
-                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
-                        
-                        // Desabilitar botão se esgotado
-                        if (newStock === 0) {
-                            addToCartBtn.textContent = 'ESGOTADO';
-                            addToCartBtn.disabled = true;
-                            
-                            // Adicionar badge de esgotado
-                            const productImage = card.querySelector('.product-image');
-                            if (!productImage.querySelector('.sold-out-badge')) {
-                                const soldOutBadge = document.createElement('div');
-                                soldOutBadge.className = 'sold-out-badge';
-                                soldOutBadge.textContent = 'ESGOTADO';
-                                productImage.appendChild(soldOutBadge);
-                            }
-                        }
-                    }
-                    
-                    // Resetar quantidade
-                    quantity = 1;
-                    quantityDisplay.textContent = '1';
-                    
-                    showMessage('success', `${cartItem.quantity} ${trufa.name} (${selectedSize}) adicionado(s) ao carrinho!`);
-                }
-            });
-            
-            return card;
-        }
-        
-        // Criar card de bolo de pote
-        function createBoloCard(bolo) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.dataset.id = bolo.id;
-            
-            const isSoldOut = bolo.stock === 0;
-            
-            card.innerHTML = `
-                <div class="product-image">
-                    <img src="${bolo.image}" alt="${bolo.name}" loading="lazy">
-                    ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">${bolo.name}</h3>
-                    <p class="product-description">${bolo.description}</p>
-                    <div class="product-price">R$ ${bolo.price.toFixed(2)}</div>
-                    
-                    <div class="quantity-controls">
-                        <button class="quantity-btn minus">-</button>
-                        <div class="quantity-display">1</div>
-                        <button class="quantity-btn plus">+</button>
-                    </div>
-                    
-                    <div class="stock-info ${bolo.stock <= 3 ? 'low' : ''}">
-                        ${bolo.stock} unidades disponíveis
-                    </div>
-                    
-                    <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''}>
-                        ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
-                    </button>
-                </div>
-            `;
-            
-            // Adicionar event listeners
-            const minusBtn = card.querySelector('.minus');
-            const plusBtn = card.querySelector('.plus');
-            const quantityDisplay = card.querySelector('.quantity-display');
-            const addToCartBtn = card.querySelector('.add-to-cart');
-            
-            let quantity = 1;
-            
-            minusBtn.addEventListener('click', function() {
-                if (quantity > 1) {
-                    quantity--;
-                    quantityDisplay.textContent = quantity;
-                }
-            });
-            
-            plusBtn.addEventListener('click', function() {
-                if (quantity < bolo.stock) {
-                    quantity++;
-                    quantityDisplay.textContent = quantity;
-                } else {
-                    showMessage('error', 'Quantidade máxima disponível atingida!');
-                }
-            });
-            
-            addToCartBtn.addEventListener('click', function() {
-                const cartItem = {
-                    id: bolo.id,
-                    name: bolo.name,
-                    price: bolo.price,
-                    quantity: quantity,
-                    type: bolo.type
-                };
-                
-                if (AppState.addToCart(cartItem)) {
-                    // Atualizar estoque no banco de dados
-                    const newStock = DB.updateProductStock(bolo.id, quantity);
-                    
-                    if (newStock >= 0) {
-                        // Atualizar estoque exibido
-                        const stockInfo = card.querySelector('.stock-info');
-                        stockInfo.textContent = `${newStock} unidades disponíveis`;
-                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
-                        
-                        // Desabilitar botão se esgotado
-                        if (newStock === 0) {
-                            addToCartBtn.textContent = 'ESGOTADO';
-                            addToCartBtn.disabled = true;
-                            
-                            // Adicionar badge de esgotado
-                            const productImage = card.querySelector('.product-image');
-                            if (!productImage.querySelector('.sold-out-badge')) {
-                                const soldOutBadge = document.createElement('div');
-                                soldOutBadge.className = 'sold-out-badge';
-                                soldOutBadge.textContent = 'ESGOTADO';
-                                productImage.appendChild(soldOutBadge);
-                            }
-                        }
-                    }
-                    
-                    // Resetar quantidade
-                    quantity = 1;
-                    quantityDisplay.textContent = '1';
-                    
-                    showMessage('success', `${cartItem.quantity} ${bolo.name} adicionado(s) ao carrinho!`);
-                }
-            });
-            
-            return card;
-        }
-        
-        // Criar card de combo
-        function createComboCard(combo) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.dataset.id = combo.id;
-            
-            const isSoldOut = combo.stock === 0;
-            
-            card.innerHTML = `
-                <div class="product-image">
-                    <img src="${combo.image}" alt="${combo.name}" loading="lazy">
-                    ${isSoldOut ? '<div class="sold-out-badge">ESGOTADO</div>' : ''}
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">${combo.name}</h3>
-                    <p class="product-description">${combo.description}</p>
-                    <div class="product-price">R$ ${combo.price.toFixed(2)}</div>
-                    
-                    <div class="flavor-selector" id="flavor-selector-${combo.id}">
-                        ${combo.type === 'combo' && combo.name === 'Duo Lagom' ? `
-                            <label>Escolha o sabor do bolo:</label>
-                            <div class="flavor-options" id="bolo-options-${combo.id}">
-                                ${combo.flavors.bolos.map(flavor => `
-                                    <div class="flavor-option" data-type="bolo" data-flavor="${flavor}">
-                                        ${flavor}
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="selection-hint">(Selecione 1 opção)</div>
-                            <label style="margin-top: 10px;">Escolha o sabor da trufa:</label>
-                            <div class="flavor-options" id="trufa-options-${combo.id}">
-                                ${combo.flavors.trufas.map(flavor => `
-                                    <div class="flavor-option" data-type="trufa" data-flavor="${flavor}">
-                                        ${flavor}
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="selection-hint">(Selecione 1 opção)</div>
-                            <div class="required-message" id="required-message-${combo.id}">Selecione 1 bolo e 1 trufa para adicionar ao carrinho</div>
-                        ` : ''}
-                        
-                        ${combo.type === 'combo' && combo.name === 'Trio de Médias' ? `
-                            <label>Escolha 3 sabores:</label>
-                            <div class="flavor-options" id="trio-flavors-${combo.id}">
-                                ${combo.flavors.map(flavor => `
-                                    <div class="flavor-option" data-flavor="${flavor}">
-                                        ${flavor}
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="selection-hint">(Selecione exatamente 3 opções)</div>
-                            <div class="required-message" id="required-message-${combo.id}">Selecione exatamente 3 sabores para adicionar ao carrinho</div>
-                        ` : ''}
-                        
-                        ${combo.type === 'combo' && combo.name === 'Kit Degustação (5 Minis)' ? `
-                            <label>Sabores incluídos:</label>
-                            <div class="flavor-options">
-                                ${combo.fixedFlavors.map(flavor => `
-                                    <div class="flavor-option selected disabled" data-flavor="${flavor}">
-                                        ${flavor}
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="selection-hint">(Kit fixo com 5 sabores)</div>
-                        ` : ''}
-                    </div>
-                    
-                    <div class="quantity-controls">
-                        <button class="quantity-btn minus">-</button>
-                        <div class="quantity-display">1</div>
-                        <button class="quantity-btn plus">+</button>
-                    </div>
-                    
-                    <div class="stock-info ${combo.stock <= 3 ? 'low' : ''}">
-                        ${combo.stock} unidades disponíveis
-                    </div>
-                    
-                    <button class="add-to-cart" ${isSoldOut ? 'disabled' : ''} id="add-to-cart-${combo.id}">
-                        ${isSoldOut ? 'ESGOTADO' : 'Adicionar ao Carrinho'}
-                    </button>
-                </div>
-            `;
-            
-            // Adicionar event listeners para seleção de sabores
-            if (combo.name === 'Duo Lagom') {
-                const boloOptions = card.querySelectorAll(`#bolo-options-${combo.id} .flavor-option`);
-                const trufaOptions = card.querySelectorAll(`#trufa-options-${combo.id} .flavor-option`);
-                const requiredMessage = card.querySelector(`#required-message-${combo.id}`);
-                const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
-                
-                // Inicialmente desabilitar botão até que as seleções sejam feitas
-                if (addToCartBtn && !isSoldOut) {
-                    addToCartBtn.disabled = true;
-                    addToCartBtn.style.opacity = '0.7';
-                }
-                
-                // Função para verificar se as seleções estão completas
-                function checkDuoSelections() {
-                    const selectedBolo = card.querySelector(`#bolo-options-${combo.id} .flavor-option.selected`);
-                    const selectedTrufa = card.querySelector(`#trufa-options-${combo.id} .flavor-option.selected`);
-                    
-                    const isComplete = selectedBolo && selectedTrufa;
-                    
-                    if (addToCartBtn && !isSoldOut) {
-                        addToCartBtn.disabled = !isComplete;
-                        addToCartBtn.style.opacity = isComplete ? '1' : '0.7';
-                    }
-                    
-                    if (requiredMessage) {
-                        requiredMessage.style.display = isComplete ? 'none' : 'block';
-                    }
-                    
-                    return isComplete;
-                }
-                
-                // Event listeners para seleção de bolo
-                boloOptions.forEach(option => {
-                    option.addEventListener('click', function() {
-                        // Remover seleção de outros bolos
-                        boloOptions.forEach(opt => opt.classList.remove('selected'));
-                        // Selecionar este bolo
-                        this.classList.add('selected');
-                        checkDuoSelections();
-                    });
-                });
-                
-                // Event listeners para seleção de trufa
-                trufaOptions.forEach(option => {
-                    option.addEventListener('click', function() {
-                        // Remover seleção de outras trufas
-                        trufaOptions.forEach(opt => opt.classList.remove('selected'));
-                        // Selecionar esta trufa
-                        this.classList.add('selected');
-                        checkDuoSelections();
-                    });
-                });
-                
-                // Verificar inicialmente
-                checkDuoSelections();
-                
-            } else if (combo.name === 'Trio de Médias') {
-                const flavorOptions = card.querySelectorAll(`#trio-flavors-${combo.id} .flavor-option`);
-                const requiredMessage = card.querySelector(`#required-message-${combo.id}`);
-                const addToCartBtn = card.querySelector(`#add-to-cart-${combo.id}`);
-                
-                // Inicialmente desabilitar botão até que as seleções sejam feitas
-                if (addToCartBtn && !isSoldOut) {
-                    addToCartBtn.disabled = true;
-                    addToCartBtn.style.opacity = '0.7';
-                }
-                
-                let selectedCount = 0;
-                
-                // Função para verificar se as seleções estão completas
-                function checkTrioSelections() {
-                    const isComplete = selectedCount === 3;
-                    
-                    if (addToCartBtn && !isSoldOut) {
-                        addToCartBtn.disabled = !isComplete;
-                        addToCartBtn.style.opacity = isComplete ? '1' : '0.7';
-                    }
-                    
-                    if (requiredMessage) {
-                        requiredMessage.style.display = isComplete ? 'none' : 'block';
-                    }
-                    
-                    return isComplete;
-                }
-                
-                // Event listeners para seleção de sabores
-                flavorOptions.forEach(option => {
-                    option.addEventListener('click', function() {
-                        if (this.classList.contains('selected')) {
-                            // Deselecionar
-                            this.classList.remove('selected');
-                            selectedCount--;
-                        } else {
-                            // Verificar se já selecionou o máximo
-                            if (selectedCount < 3) {
-                                this.classList.add('selected');
-                                selectedCount++;
-                            } else {
-                                showMessage('error', 'Máximo de 3 sabores selecionados!');
-                                return;
-                            }
-                        }
-                        checkTrioSelections();
-                    });
-                });
-                
-                // Verificar inicialmente
-                checkTrioSelections();
-            }
-            
-            // Adicionar event listeners para quantidade
-            const minusBtn = card.querySelector('.minus');
-            const plusBtn = card.querySelector('.plus');
-            const quantityDisplay = card.querySelector('.quantity-display');
-            const addToCartBtn = card.querySelector('.add-to-cart');
-            
-            let quantity = 1;
-            
-            minusBtn.addEventListener('click', function() {
-                if (quantity > 1) {
-                    quantity--;
-                    quantityDisplay.textContent = quantity;
-                }
-            });
-            
-            plusBtn.addEventListener('click', function() {
-                if (quantity < combo.stock) {
-                    quantity++;
-                    quantityDisplay.textContent = quantity;
-                } else {
-                    showMessage('error', 'Quantidade máxima disponível atingida!');
-                }
-            });
-            
-            addToCartBtn.addEventListener('click', function() {
-                let cartItem = {
-                    id: combo.id,
-                    name: combo.name,
-                    price: combo.price,
-                    quantity: quantity,
-                    type: combo.type,
-                    details: ''
-                };
-                
-                // Verificar se as seleções necessárias foram feitas
-                if (combo.name === 'Duo Lagom') {
-                    const selectedBolo = card.querySelector(`#bolo-options-${combo.id} .flavor-option.selected`);
-                    const selectedTrufa = card.querySelector(`#trufa-options-${combo.id} .flavor-option.selected`);
-                    
-                    if (!selectedBolo || !selectedTrufa) {
-                        showMessage('error', 'Por favor, selecione 1 bolo e 1 trufa!');
-                        return;
-                    }
-                    
-                    cartItem.details = `Bolo: ${selectedBolo.dataset.flavor}, Trufa: ${selectedTrufa.dataset.flavor}`;
-                    
-                } else if (combo.name === 'Trio de Médias') {
-                    const selectedOptions = card.querySelectorAll(`#trio-flavors-${combo.id} .flavor-option.selected`);
-                    
-                    if (selectedOptions.length !== 3) {
-                        showMessage('error', 'Por favor, selecione exatamente 3 sabores!');
-                        return;
-                    }
-                    
-                    const selectedFlavors = Array.from(selectedOptions).map(opt => opt.dataset.flavor);
-                    cartItem.details = `Sabores: ${selectedFlavors.join(', ')}`;
-                    
-                } else if (combo.name === 'Kit Degustação (5 Minis)') {
-                    cartItem.details = `Sabores: ${combo.fixedFlavors.join(', ')}`;
-                }
-                
-                if (AppState.addToCart(cartItem)) {
-                    // Atualizar estoque no banco de dados
-                    const newStock = DB.updateProductStock(combo.id, quantity);
-                    
-                    if (newStock >= 0) {
-                        // Atualizar estoque exibido
-                        const stockInfo = card.querySelector('.stock-info');
-                        stockInfo.textContent = `${newStock} unidades disponíveis`;
-                        stockInfo.className = `stock-info ${newStock <= 3 ? 'low' : ''}`;
-                        
-                        // Desabilitar botão se esgotado
-                        if (newStock === 0) {
-                            addToCartBtn.textContent = 'ESGOTADO';
-                            addToCartBtn.disabled = true;
-                            
-                            // Adicionar badge de esgotado
-                            const productImage = card.querySelector('.product-image');
-                            if (!productImage.querySelector('.sold-out-badge')) {
-                                const soldOutBadge = document.createElement('div');
-                                soldOutBadge.className = 'sold-out-badge';
-                                soldOutBadge.textContent = 'ESGOTADO';
-                                productImage.appendChild(soldOutBadge);
-                            }
-                        }
-                    }
-                    
-                    // Resetar quantidade
-                    quantity = 1;
-                    quantityDisplay.textContent = '1';
-                    
-                    showMessage('success', `${cartItem.quantity} ${combo.name} adicionado(s) ao carrinho!`);
-                }
-            });
-            
-            return card;
-        }
-
-        // Atualizar display do carrinho
-        function updateCartDisplay() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            cartItemsContainer.innerHTML = '';
-            
-            if (AppState.cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p style="text-align: center; color: var(--azul-acinzentado); padding: 20px;">Seu carrinho está vazio</p>';
-            } else {
-                AppState.cart.forEach((item, index) => {
-                    const itemElement = document.createElement('div');
-                    itemElement.className = 'cart-item';
-                    itemElement.innerHTML = `
-                        <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <div class="cart-item-details">${item.details || ''}</div>
-                            <div>Quantidade: ${item.quantity}</div>
-                        </div>
-                        <div class="cart-item-price">R$ ${(item.price * item.quantity).toFixed(2)}</div>
-                        <button class="cart-item-remove" data-index="${index}">&times;</button>
-                    `;
-                    cartItemsContainer.appendChild(itemElement);
-                });
-                
-                // Adicionar event listeners para remover itens
-                document.querySelectorAll('.cart-item-remove').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = parseInt(this.dataset.index);
-                        AppState.removeFromCart(index);
-                        updateCartDisplay();
-                        showMessage('info', 'Item removido do carrinho!');
-                    });
-                });
-            }
-            
-            // Atualizar total
-            const total = AppState.getCartTotal();
-            document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
-        }
-
-        // Função para abrir o WhatsApp com o pedido
-        function sendToWhatsApp() {
-            if (AppState.cart.length === 0) {
-                showMessage('error', 'Adicione itens ao carrinho antes de finalizar o pedido!');
-                return;
-            }
-            
-            const name = document.getElementById('customer-name').value.trim();
-            const apartment = document.getElementById('apartment').value.trim();
-            const block = document.getElementById('block').value.trim();
-            const paymentMethod = document.getElementById('payment-method').value;
-            
-            if (!name || !apartment || !block || !paymentMethod) {
-                showMessage('error', 'Preencha todos os dados do pedido!');
-                return;
-            }
-            
-            // Formatar mensagem do pedido
-            let message = `*NOVO PEDIDO - Doce Lagom*\n\n`;
-            message += `*Cliente:* ${name}\n`;
-            message += `*Apartamento:* ${apartment}\n`;
-            message += `*Bloco:* ${block}\n`;
-            message += `*Forma de pagamento:* ${paymentMethod === 'pix' ? 'Pix' : 'Dinheiro'}\n\n`;
-            message += `*Itens do pedido:*\n`;
-            
-            AppState.cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name}${item.details ? ` (${item.details})` : ''}\n`;
-                message += `   Quantidade: ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.price * item.quantity).toFixed(2)}\n`;
-            });
-            
-            const total = AppState.getCartTotal();
-            message += `\n*Total: R$ ${total.toFixed(2)}*\n\n`;
-            message += `_Pedido realizado através do site Doce Lagom_`;
-            
-            // Criar pedido no banco de dados
-            const order = {
-                customerName: name,
-                customerEmail: AppState.currentUser ? AppState.currentUser.email : 'guest@example.com',
-                apartment: apartment,
-                block: block,
-                paymentMethod: paymentMethod,
-                items: [...AppState.cart],
-                total: total,
-                status: 'pending'
-            };
-            
-            const savedOrder = DB.addOrder(order);
-            
-            // Adicionar pedido ao cliente se estiver logado
-            if (AppState.currentUser) {
-                DB.addOrderToCustomer(AppState.currentUser.email, savedOrder.id);
-            }
-            
-            // Codificar a mensagem para URL
-            const encodedMessage = encodeURIComponent(message);
-            const phoneNumber = '558393889854';
-            const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            
-            // Abrir WhatsApp
-            window.open(url, '_blank');
-            
-            // Limpar carrinho após envio
-            AppState.clearCart();
-            updateCartDisplay();
-            
-            // Fechar carrinho
-            document.getElementById('cart-sidebar').classList.remove('open');
-            
-            showMessage('success', 'Pedido enviado com sucesso!');
-        }
 
         // Função para mostrar mensagens
         function showMessage(type, text) {
@@ -2248,51 +1629,61 @@
             }, 3000);
         }
 
-        // Inicialização
+        // Função para enviar pedido via WhatsApp
+        function sendToWhatsApp() {
+            if (AppState.cart.length === 0) {
+                showMessage('error', 'Adicione itens ao carrinho antes de finalizar o pedido!');
+                return;
+            }
+            
+            const name = document.getElementById('customer-name').value.trim();
+            const apartment = document.getElementById('apartment').value.trim();
+            const block = document.getElementById('block').value.trim();
+            const paymentMethod = document.getElementById('payment-method').value;
+            
+            if (!name || !apartment || !block || !paymentMethod) {
+                showMessage('error', 'Preencha todos os dados do pedido!');
+                return;
+            }
+            
+            // Formatar mensagem do pedido
+            let message = `*NOVO PEDIDO - Doce Lagom*\n\n`;
+            message += `*Cliente:* ${name}\n`;
+            message += `*Apartamento:* ${apartment}\n`;
+            message += `*Bloco:* ${block}\n`;
+            message += `*Forma de pagamento:* ${paymentMethod === 'pix' ? 'Pix' : paymentMethod === 'cartao' ? 'Cartão de Crédito' : 'Dinheiro'}\n\n`;
+            message += `*Itens do pedido:*\n`;
+            
+            AppState.cart.forEach((item, index) => {
+                message += `${index + 1}. ${item.name}${item.details ? ` (${item.details})` : ''}\n`;
+                message += `   Quantidade: ${item.quantity} x R$ ${item.price.toFixed(2)} = R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            
+            const total = AppState.getCartTotal();
+            message += `\n*Total: R$ ${total.toFixed(2)}*\n\n`;
+            message += `_Pedido realizado através do site Doce Lagom_`;
+            
+            // Codificar a mensagem para URL
+            const encodedMessage = encodeURIComponent(message);
+            const phoneNumber = '558393889854';
+            const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Abrir WhatsApp
+            window.open(url, '_blank');
+            
+            // Limpar carrinho após envio
+            AppState.clearCart();
+            
+            // Fechar carrinho
+            document.getElementById('cart-sidebar').classList.remove('open');
+            
+            showMessage('success', 'Pedido enviado com sucesso!');
+        }
+
+        // Inicialização quando o DOM estiver carregado
         document.addEventListener('DOMContentLoaded', function() {
-            // Inicializar sistemas
+            // Inicializar a aplicação
             AppState.init();
-            ViewManager.showStore();
-            updateCartDisplay();
-            
-            // Event Listeners para navegação
-            document.getElementById('user-history-btn').addEventListener('click', function() {
-                ViewManager.showOrderHistory();
-            });
-            
-            document.getElementById('user-login-btn').addEventListener('click', function() {
-                document.getElementById('login-modal').style.display = 'flex';
-            });
-            
-            document.getElementById('back-to-shop').addEventListener('click', function() {
-                ViewManager.showStore();
-            });
-            
-            // Login do cliente
-            document.getElementById('client-login-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('client-email').value.trim();
-                const name = document.getElementById('client-name').value.trim();
-                
-                if (!email || !name) {
-                    document.getElementById('client-error').textContent = 'Por favor, preencha todos os campos!';
-                    document.getElementById('client-error').style.display = 'block';
-                    return;
-                }
-                
-                AppState.loginClient(email, name);
-                document.getElementById('login-modal').style.display = 'none';
-                this.reset();
-                document.getElementById('client-error').style.display = 'none';
-            });
-            
-            // Fechar modal ao clicar fora
-            document.getElementById('login-modal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.style.display = 'none';
-                    document.getElementById('client-error').style.display = 'none';
-                }
-            });
             
             // Event listeners do carrinho
             document.getElementById('view-cart').addEventListener('click', function(e) {
@@ -2310,7 +1701,6 @@
             
             document.getElementById('clear-cart-btn').addEventListener('click', function() {
                 AppState.clearCart();
-                updateCartDisplay();
                 showMessage('info', 'Carrinho limpo!');
             });
             
@@ -2325,6 +1715,10 @@
                 });
             });
             
+            // Selecionar Pix por padrão
+            document.querySelector('.payment-option[data-payment="pix"]').classList.add('selected');
+            document.getElementById('payment-method').value = 'pix';
+            
             // Enviar pedido via WhatsApp
             document.getElementById('checkout-form').addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -2338,7 +1732,7 @@
                 window.open(url, '_blank');
             });
             
-            // Fechar carrinho ao clicar fora (em dispositivos móveis)
+            // Fechar carrinho ao clicar fora
             document.addEventListener('click', function(e) {
                 const cartSidebar = document.getElementById('cart-sidebar');
                 if (cartSidebar.classList.contains('open') && 
@@ -2347,29 +1741,6 @@
                     !e.target.closest('#cart-float')) {
                     cartSidebar.classList.remove('open');
                 }
-            });
-            
-            // Atualizar navegação ativa ao rolar
-            window.addEventListener('scroll', function() {
-                const sections = document.querySelectorAll('section');
-                const navLinks = document.querySelectorAll('.nav-link');
-                
-                let currentSection = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 150;
-                    const sectionHeight = section.clientHeight;
-                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                        currentSection = '#' + section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === currentSection) {
-                        link.classList.add('active');
-                    }
-                });
             });
             
             // Navegação suave
@@ -2396,6 +1767,29 @@
                                 behavior: 'smooth'
                             });
                         }
+                    }
+                });
+            });
+            
+            // Atualizar navegação ativa ao rolar
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        currentSection = '#' + section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
                     }
                 });
             });
