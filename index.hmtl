@@ -1156,5 +1156,6 @@
             window.open(`https://wa.me/${558393889854}?text=${encodeURIComponent(message)}`, '_blank');
         }
     </script>
+
 </body>
 </html>
