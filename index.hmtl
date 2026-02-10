@@ -1,1826 +1,1160 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Admin - Doce Lagom</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Doce Lagom - Confeitaria Artesanal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-dark: #1a1a1a;
-            --primary-gold: #c9a962;
-            --primary-gold-light: #e8d5a3;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --info: #3b82f6;
-            --background: #f8fafc;
-            --sidebar-bg: #1e293b;
-            --card-bg: #ffffff;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --border: #e5e7eb;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --radius: 8px;
+            --cream: #faf8f5;
+            --cream-dark: #f3efe8;
+            --earth: #b8956c;
+            --earth-light: #d4b896;
+            --earth-dark: #9a7a55;
+            --mint: #9fb7ad;
+            --mint-light: #c2d4cc;
+            --ink: #2d2a26;
+            --ink-light: #5c5652;
+            --white: #ffffff;
+            --shadow-soft: 0 4px 20px rgba(45, 42, 38, 0.06);
+            --shadow-medium: 0 8px 32px rgba(45, 42, 38, 0.1);
+            --shadow-hover: 0 12px 40px rgba(45, 42, 38, 0.15);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--background);
-            color: var(--text-primary);
-            display: flex;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--ink);
+            background: var(--cream);
             min-height: 100vh;
-            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            background: var(--sidebar-bg);
-            color: white;
-            padding: 25px 0;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            transition: all 0.3s;
-            z-index: 1000;
-        }
-
-        .sidebar-header {
-            padding: 0 25px 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-gold);
-        }
-
-        .logo h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            background: linear-gradient(45deg, var(--primary-gold), var(--primary-gold-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 5px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 25px;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-
-        .sidebar-menu a:hover,
-        .sidebar-menu a.active {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border-left: 4px solid var(--primary-gold);
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        .top-bar {
-            background: white;
-            padding: 20px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+        /* ===== HEADER / HERO ===== */
+        .header {
+            background: linear-gradient(180deg, var(--white) 0%, var(--cream) 100%);
+            padding: 40px 24px 60px;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .stat-card::before {
-            content: '';
+        .header::before {
+            content: "";
             position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(159, 183, 173, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(184, 149, 108, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .logo-container {
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: var(--shadow-medium);
+            background: var(--cream);
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--mint) 0%, var(--earth-light) 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--white);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .logo-placeholder span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .brand-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-style: italic;
+            color: var(--earth);
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-description {
+            font-size: 0.95rem;
+            color: var(--ink-light);
+            max-width: 480px;
+            margin: 0 auto;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 140px;
+        }
+
+        /* ===== NAVIGATION BAR ===== */
+        .nav-bar {
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--primary-gold);
-        }
-
-        /* Content Sections */
-        .content-section {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .content-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Tables */
-        .table-container {
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: var(--primary-dark);
-            color: white;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: left;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .status-pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .status-delivered { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .status-cancelled { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-
-        .action-buttons {
+            z-index: 900;
+            background: var(--white);
+            border-bottom: 1px solid rgba(184, 149, 108, 0.15);
+            padding: 12px 24px;
+            box-shadow: var(--shadow-soft);
             display: flex;
-            gap: 8px;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        .btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: var(--radius);
+        .nav-btn {
+            background: linear-gradient(145deg, var(--cream) 0%, var(--cream-dark) 100%);
+            border: 1px solid rgba(184, 149, 108, 0.25);
+            color: var(--ink);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
         }
 
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 0.8rem;
+        .nav-btn:hover {
+            background: linear-gradient(145deg, var(--mint-light) 0%, var(--mint) 100%);
+            border-color: var(--mint);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(159, 183, 173, 0.35);
         }
 
-        .btn-edit { background: rgba(59, 130, 246, 0.1); color: var(--info); }
-        .btn-delete { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-        .btn-view { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .btn-primary { background: var(--primary-gold); color: white; }
-
-        .btn-edit:hover { background: var(--info); color: white; }
-        .btn-delete:hover { background: var(--danger); color: white; }
-        .btn-view:hover { background: var(--success); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-
-        /* Forms */
-        .form-section {
-            background: white;
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
+        .nav-btn:active {
+            transform: translateY(0);
         }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
+        .nav-btn-icon {
+            font-size: 1.1rem;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        /* ===== SECTION / CORREDOR ===== */
+        .section {
+            margin-bottom: 48px;
+            scroll-margin-top: 80px;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(184, 149, 108, 0.2);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.85rem;
             font-weight: 600;
+            color: var(--ink);
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            transition: all 0.3s;
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--ink-light);
+            font-weight: 400;
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-gold);
-            box-shadow: 0 0 0 3px rgba(201, 169, 98, 0.1);
-        }
-
-        /* Product Cards */
+        /* ===== PRODUCTS GRID ===== */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
         }
 
+        /* ===== PRODUCT CARD ===== */
         .product-card {
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            background: var(--white);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            transition: all 0.3s;
-            border: 1px solid var(--border);
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
         }
 
         .product-image {
-            height: 200px;
             width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--cream-dark) 0%, var(--cream) 100%);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-bottom: 1px solid var(--border);
+            transition: transform 0.5s ease;
         }
 
-        .product-info {
-            padding: 20px;
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
         }
 
-        .product-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .product-title {
-            font-weight: 600;
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-        }
-
-        .product-category {
-            display: inline-block;
-            padding: 4px 12px;
-            background: rgba(201, 169, 98, 0.1);
-            color: var(--primary-gold);
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--earth);
+            color: var(--white);
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
+        .product-content {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .product-description {
+            font-size: 0.85rem;
+            color: var(--ink-light);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
         .product-price {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary-gold);
-            margin: 12px 0;
+            color: var(--earth-dark);
         }
 
-        .product-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            min-height: 60px;
-        }
-
-        /* Product Tags */
-        .product-tags {
+        .quantity-controls {
             display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: 12px 0;
-        }
-
-        .product-tag {
-            background: rgba(201, 169, 98, 0.1);
-            color: var(--primary-gold);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        /* Stock Status */
-        .stock-status {
-            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            gap: 8px;
         }
 
-        .stock-high { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .stock-medium { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .stock-low { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .qty-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(145deg, var(--mint), var(--mint-light));
+            color: var(--white);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(159, 183, 173, 0.3);
+        }
 
-        .product-stats {
+        .qty-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(159, 183, 173, 0.4);
+        }
+
+        .qty-btn:active {
+            transform: scale(0.95);
+        }
+
+        .qty-display {
+            min-width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--ink);
+            background: rgba(159, 183, 173, 0.1);
+            border-radius: 8px;
+        }
+
+        /* ===== CART FOOTER ===== */
+        .cart-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid rgba(184, 149, 108, 0.15);
+            padding: 16px 24px;
+            box-shadow: 0 -8px 32px rgba(45, 42, 38, 0.1);
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .cart-footer.visible {
+            transform: translateY(0);
+        }
+
+        .cart-footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid var(--border);
-            margin-top: 15px;
+            gap: 20px;
+        }
+
+        .cart-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cart-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(145deg, var(--mint), var(--mint-light));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 16px rgba(159, 183, 173, 0.35);
+        }
+
+        .cart-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .cart-items-count {
             font-size: 0.85rem;
+            color: var(--ink-light);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            .sidebar.active {
-                transform: translateX(0);
-            }
+        .cart-total {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--ink);
         }
 
+        .checkout-btn {
+            background: linear-gradient(145deg, var(--earth), var(--earth-dark));
+            color: var(--white);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 16px rgba(184, 149, 108, 0.35);
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(184, 149, 108, 0.5);
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .stats-cards {
-                grid-template-columns: 1fr;
+            .header {
+                padding: 32px 20px 48px;
             }
+
+            .logo-placeholder {
+                width: 100px;
+                height: 100px;
+            }
+
+            .logo-placeholder span {
+                font-size: 2rem;
+            }
+
+            .brand-name {
+                font-size: 2.25rem;
+            }
+
+            .brand-tagline {
+                font-size: 1.15rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
             .products-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
-            .form-grid {
-                grid-template-columns: 1fr;
+
+            .product-image {
+                height: 220px;
+            }
+
+            .cart-footer-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .cart-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .checkout-btn {
+                width: 100%;
+                text-align: center;
             }
         }
 
-        /* Mobile Toggle */
-        .mobile-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            background: var(--primary-gold);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius);
-            border: none;
-            cursor: pointer;
+        @media (max-width: 480px) {
+            .brand-name {
+                font-size: 1.85rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .product-name {
+                font-size: 1.2rem;
+            }
+
+            .product-price {
+                font-size: 1.3rem;
+            }
         }
 
-        /* Search and Filters */
-        .search-filter {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            align-items: center;
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .search-box {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
+        .product-card {
+            animation: fadeInUp 0.6s ease forwards;
         }
 
-        .search-box input {
-            width: 100%;
-            padding: 12px 45px 12px 20px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            font-size: 0.95rem;
-        }
-
-        .search-box i {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .filter-box {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-box select {
-            padding: 12px 20px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: white;
-            font-size: 0.95rem;
-            min-width: 150px;
-        }
-
-        /* Notifications */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: var(--radius);
-            background: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            display: none;
-            align-items: center;
-            gap: 15px;
-            z-index: 2000;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(100%); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .notification.success { border-left: 4px solid var(--success); }
-        .notification.error { border-left: 4px solid var(--danger); }
-        .notification.warning { border-left: 4px solid var(--warning); }
-
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
-            grid-column: 1 / -1;
-        }
-
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--border);
-        }
-
-        /* Chart Container */
-        .chart-container {
-            background: white;
-            padding: 25px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-
-        /* Featured Star */
-        .featured-star {
-            color: var(--warning);
-            font-size: 1.2rem;
-        }
+        .product-card:nth-child(1) { animation-delay: 0.1s; }
+        .product-card:nth-child(2) { animation-delay: 0.15s; }
+        .product-card:nth-child(3) { animation-delay: 0.2s; }
+        .product-card:nth-child(4) { animation-delay: 0.25s; }
+        .product-card:nth-child(5) { animation-delay: 0.3s; }
+        .product-card:nth-child(6) { animation-delay: 0.35s; }
+        .product-card:nth-child(7) { animation-delay: 0.4s; }
+        .product-card:nth-child(8) { animation-delay: 0.45s; }
     </style>
 </head>
 <body>
-    <!-- Mobile Toggle -->
-    <button class="mobile-toggle" id="mobileToggle">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">
-                <img src="https://i.pinimg.com/originals/54/2c/45/542c4582ca79a683b61ad28f926f9efd.png" alt="Doce Lagom">
-                <h1>DOCE LAGOM</h1>
-            </div>
-            <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Painel Administrativo</p>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="https://i.pinimg.com/originals/54/2c/45/542c4582ca79a683b61ad28f926f9efd.png" alt="Doce Lagom Logo" class="logo">
         </div>
+        <h1 class="brand-name">Doce Lagom</h1>
+        <p class="brand-tagline">Onde o menos e, deliciosamente, mais.</p>
+        <p class="brand-description">Confeitaria artesanal com docura na medida certa. Cada produto e feito com ingredientes selecionados e muito carinho.</p>
+    </header>
 
-        <ul class="sidebar-menu">
-            <li><a href="#dashboard" class="active" onclick="showSection('dashboard')">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
-            </a></li>
-            <li><a href="#orders" onclick="showSection('orders')">
-                <i class="fas fa-shopping-bag"></i> Pedidos
-                <span id="ordersCount" style="margin-left: auto; background: var(--warning); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">0</span>
-            </a></li>
-            <li><a href="#products" onclick="showSection('products')">
-                <i class="fas fa-box"></i> Produtos
-                <span id="productsCount" style="margin-left: auto; background: var(--info); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem;">11</span>
-            </a></li>
-            <li><a href="#add-product" onclick="showSection('add-product')">
-                <i class="fas fa-plus-circle"></i> Adicionar Produto
-            </a></li>
-            <li><a href="#analytics" onclick="showSection('analytics')">
-                <i class="fas fa-chart-line"></i> Análises
-            </a></li>
-            <li><a href="../index.html" target="_blank">
-                <i class="fas fa-store"></i> Ver Loja
-            </a></li>
-        </ul>
-    </aside>
+    <!-- NAVIGATION BAR -->
+    <nav class="nav-bar">
+        <a href="#trufas" class="nav-btn">
+            <span class="nav-btn-icon">🍫</span>
+            Trufas
+        </a>
+        <a href="#bolos" class="nav-btn">
+            <span class="nav-btn-icon">🍰</span>
+            Bolos de Pote
+        </a>
+        <a href="#combos" class="nav-btn">
+            <span class="nav-btn-icon">🎁</span>
+            Combos
+        </a>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div>
-                <h2 id="sectionTitle">Dashboard</h2>
-                <p id="sectionSubtitle" style="color: var(--text-secondary); font-size: 0.95rem;">Gerencie todos os produtos e pedidos</p>
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- TRUFAS -->
+        <section class="section" id="trufas">
+            <div class="section-header">
+                <h2 class="section-title">Trufas Artesanais</h2>
+                <span class="section-subtitle">8 sabores para todos os gostos</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 20px;">
-                <div style="text-align: right;">
-                    <div style="font-weight: 600;">Administrador</div>
-                    <div style="font-size: 0.9rem; color: var(--text-secondary);" id="currentDate"></div>
-                </div>
-                <button class="btn btn-primary" onclick="refreshData()">
-                    <i class="fas fa-sync-alt"></i> Atualizar
-                </button>
-            </div>
-        </div>
-
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="content-section active">
-            <div class="stats-cards">
-                <div class="stat-card">
-                    <h3>Total de Produtos</h3>
-                    <div class="value" id="totalProducts" style="font-size: 2.2rem; font-weight: 700;">11</div>
-                    <div style="color: var(--info); font-size: 0.9rem; margin-top: 8px;">
-                        <i class="fas fa-box"></i> 11 produtos cadastrados
+            <div class="products-grid">
+                <!-- Trufa de Maracuja -->
+                <article class="product-card" data-id="trufa-maracuja" data-name="Trufa de Maracuja" data-price="6.5">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1548907040-4baa42d10919?w=600&q=80" alt="Trufa de Maracuja - chocolate branco com recheio cremoso de maracuja">
                     </div>
-                </div>
-                <div class="stat-card">
-                    <h3>Produtos em Destaque</h3>
-                    <div class="value" id="featuredProducts" style="font-size: 2.2rem; font-weight: 700;">5</div>
-                    <div style="color: var(--warning); font-size: 0.9rem; margin-top: 8px;">
-                        <i class="fas fa-star"></i> 5 produtos destacados
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h3>Total de Categorias</h3>
-                    <div class="value" id="totalCategories" style="font-size: 2.2rem; font-weight: 700;">3</div>
-                    <div style="color: var(--success); font-size: 0.9rem; margin-top: 8px;">
-                        <i class="fas fa-tags"></i> Trufas, Bolos, Combos
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h3>Estoque Total</h3>
-                    <div class="value" id="totalStock" style="font-size: 2.2rem; font-weight: 700;">199</div>
-                    <div style="color: var(--primary-gold); font-size: 0.9rem; margin-top: 8px;">
-                        <i class="fas fa-cubes"></i> Unidades disponíveis
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="stats-cards">
-                <div class="stat-card" style="cursor: pointer;" onclick="showSection('products')">
-                    <h3><i class="fas fa-eye"></i> Ver Todos Produtos</h3>
-                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">
-                        Clique para ver todos os 11 produtos cadastrados
-                    </div>
-                </div>
-                <div class="stat-card" style="cursor: pointer;" onclick="showSection('add-product')">
-                    <h3><i class="fas fa-plus"></i> Adicionar Produto</h3>
-                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">
-                        Adicione novos produtos ao catálogo
-                    </div>
-                </div>
-                <div class="stat-card" style="cursor: pointer;" onclick="exportProducts()">
-                    <h3><i class="fas fa-download"></i> Exportar Dados</h3>
-                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">
-                        Exporte a lista de produtos
-                    </div>
-                </div>
-                <div class="stat-card" style="cursor: pointer;" onclick="showLowStockProducts()">
-                    <h3><i class="fas fa-exclamation-triangle"></i> Estoque Baixo</h3>
-                    <div class="value" id="lowStockCount" style="font-size: 2.2rem; font-weight: 700; color: var(--danger);">0</div>
-                </div>
-            </div>
-
-            <!-- Top Products -->
-            <div class="chart-container">
-                <h3 style="margin-bottom: 20px;"><i class="fas fa-trophy"></i> Produtos Mais Populares</h3>
-                <div id="topProductsList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-                    <!-- Top produtos carregados via JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Products Section -->
-        <section id="products" class="content-section">
-            <div class="search-filter">
-                <div class="search-box">
-                    <input type="text" id="productSearch" placeholder="Buscar produtos por nome, categoria ou tags..." onkeyup="searchProducts()">
-                    <i class="fas fa-search"></i>
-                </div>
-                <div class="filter-box">
-                    <select id="productCategoryFilter" onchange="filterProducts()">
-                        <option value="all">Todas Categorias</option>
-                        <option value="trufas">Trufas</option>
-                        <option value="bolos">Bolos</option>
-                        <option value="combos">Combos</option>
-                    </select>
-                    <select id="productStockFilter" onchange="filterProducts()">
-                        <option value="all">Todo Estoque</option>
-                        <option value="high">Estoque Alto (>10)</option>
-                        <option value="medium">Estoque Médio (5-10)</option>
-                        <option value="low">Estoque Baixo (<5)</option>
-                    </select>
-                    <select id="productFeaturedFilter" onchange="filterProducts()">
-                        <option value="all">Todos</option>
-                        <option value="featured">Destaque</option>
-                        <option value="normal">Normal</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" onclick="showSection('add-product')">
-                    <i class="fas fa-plus"></i> Novo Produto
-                </button>
-            </div>
-
-            <div class="products-grid" id="productsGrid">
-                <!-- Produtos carregados via JavaScript -->
-            </div>
-        </section>
-
-        <!-- Add Product Section -->
-        <section id="add-product" class="content-section">
-            <div class="form-section">
-                <h3 style="margin-bottom: 25px; color: var(--text-primary); border-bottom: 2px solid var(--primary-gold); padding-bottom: 10px;">
-                    <i class="fas fa-plus-circle"></i> Adicionar Novo Produto
-                </h3>
-                
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="productName"><i class="fas fa-cube"></i> Nome do Produto *</label>
-                        <input type="text" id="productName" placeholder="Ex: Trufa de Maracujá">
-                    </div>
-                    <div class="form-group">
-                        <label for="productCategory"><i class="fas fa-tag"></i> Categoria *</label>
-                        <select id="productCategory">
-                            <option value="">Selecione uma categoria</option>
-                            <option value="trufas">Trufas</option>
-                            <option value="bolos">Bolos</option>
-                            <option value="combos">Combos</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="productPrice"><i class="fas fa-tag"></i> Preço *</label>
-                        <input type="number" id="productPrice" placeholder="0.00" step="0.01" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="productStock"><i class="fas fa-box"></i> Estoque Inicial</label>
-                        <input type="number" id="productStock" value="10" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="productImageURL"><i class="fas fa-image"></i> URL da Imagem *</label>
-                        <input type="url" id="productImageURL" placeholder="https://exemplo.com/imagem.jpg">
-                        <small style="color: var(--text-secondary); display: block; margin-top: 5px;">Use um serviço como ImgBB ou similar para hospedar imagens</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="productDescription"><i class="fas fa-align-left"></i> Descrição *</label>
-                        <textarea id="productDescription" placeholder="Descreva o produto em detalhes..." rows="4"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="productTags"><i class="fas fa-hashtag"></i> Tags (separadas por vírgula)</label>
-                        <input type="text" id="productTags" placeholder="Ex: Favorito, Premium, Mais Pedido, Novidade">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px; background: rgba(201, 169, 98, 0.05); border-radius: var(--radius);">
-                        <input type="checkbox" id="productFeatured" checked style="transform: scale(1.2);">
-                        <div>
-                            <div style="font-weight: 600; color: var(--primary-gold);">
-                                <i class="fas fa-star"></i> Destacar este produto
-                            </div>
-                            <div style="font-size: 0.85rem; color: var(--text-secondary);">
-                                Produtos destacados aparecem com uma estrela e têm maior visibilidade
+                    <div class="product-content">
+                        <h3 class="product-name">Trufa de Maracuja</h3>
+                        <p class="product-description">Chocolate branco com recheio cremoso e citrico de maracuja fresco. Um equilibrio perfeito entre doce e azedinho.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 6,50</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('trufa-maracuja', -1)">-</button>
+                                <span class="qty-display" id="qty-trufa-maracuja">0</span>
+                                <button class="qty-btn" onclick="changeQty('trufa-maracuja', 1)">+</button>
                             </div>
                         </div>
-                    </label>
-                </div>
+                    </div>
+                </article>
 
-                <div style="display: flex; gap: 15px; justify-content: flex-end; padding-top: 25px; border-top: 1px solid var(--border);">
-                    <button class="btn" onclick="showSection('products')" style="background: var(--border); color: var(--text-secondary);">
-                        <i class="fas fa-times"></i> Cancelar
-                    </button>
-                    <button class="btn btn-primary" onclick="saveProduct()">
-                        <i class="fas fa-save"></i> Salvar Produto
-                    </button>
-                </div>
+                <!-- Trufa de Capuccino -->
+                <article class="product-card" data-id="trufa-capuccino" data-name="Trufa de Capuccino" data-price="6.5">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=600&q=80" alt="Trufa de Capuccino - chocolate ao leite com cafe e canela">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Trufa de Capuccino</h3>
+                        <p class="product-description">Chocolate ao leite com ganache de cafe espresso e um toque sutil de canela. Ideal para os amantes de cafe.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 6,50</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('trufa-capuccino', -1)">-</button>
+                                <span class="qty-display" id="qty-trufa-capuccino">0</span>
+                                <button class="qty-btn" onclick="changeQty('trufa-capuccino', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trufa de Framboesa -->
+                <article class="product-card" data-id="trufa-framboesa" data-name="Trufa de Framboesa" data-price="6.5">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=600&q=80" alt="Trufa de Framboesa - chocolate meio amargo com frutas vermelhas">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Trufa de Framboesa</h3>
+                        <p class="product-description">Chocolate meio amargo recheado com ganache de framboesa. Docura delicada com o frescor das frutas vermelhas.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 6,50</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('trufa-framboesa', -1)">-</button>
+                                <span class="qty-display" id="qty-trufa-framboesa">0</span>
+                                <button class="qty-btn" onclick="changeQty('trufa-framboesa', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trufa de Avela -->
+                <article class="product-card" data-id="trufa-avela" data-name="Trufa de Avela" data-price="7">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=600&q=80" alt="Trufa de Avela - chocolate com creme de avela crocante">
+                        <span class="product-badge">Premium</span>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Trufa de Avela</h3>
+                        <p class="product-description">Chocolate ao leite com cremoso recheio de avela e pedacinhos crocantes. Uma experiencia sofisticada.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 7,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('trufa-avela', -1)">-</button>
+                                <span class="qty-display" id="qty-trufa-avela">0</span>
+                                <button class="qty-btn" onclick="changeQty('trufa-avela', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trufa de Coco -->
+                <article class="product-card" data-id="trufa-coco" data-name="Trufa de Coco" data-price="6">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&q=80" alt="Trufa de Coco - chocolate branco com coco ralado">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Trufa de Coco</h3>
+                        <p class="product-description">Chocolate branco com recheio cremoso de coco e cobertura de coco ralado. Textura macia e sabor tropical.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 6,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('trufa-coco', -1)">-</button>
+                                <span class="qty-display" id="qty-trufa-coco">0</span>
+                                <button class="qty-btn" onclick="changeQty('trufa-coco', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trufa de Limao Siciliano -->
+                <article class="product-card" data-id="trufa-limao" data-name="Trufa de Limao Siciliano" data-price="6.5">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=600&q=80" alt="Trufa de Limao Siciliano - chocolate branco com limao">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Trufa de Limao Siciliano</h3>
+                        <p class="product-description">Chocolate branco com ganache aromatica de limao siciliano. Leve, refrescante e sofisticada.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 6,50</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('trufa-limao', -1)">-</button>
+                                <span class="qty-display" id="qty-trufa-limao">0</span>
+                                <button class="qty-btn" onclick="changeQty('trufa-limao', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trufa de Morango -->
+                <article class="product-card" data-id="trufa-morango" data-name="Trufa de Morango" data-price="6.5">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80" alt="Trufa de Morango - chocolate com morango fresco">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Trufa de Morango</h3>
+                        <p class="product-description">Chocolate ao leite com recheio cremoso de morango. Combina perfeitamente frutas vermelhas e chocolate.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 6,50</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('trufa-morango', -1)">-</button>
+                                <span class="qty-display" id="qty-trufa-morango">0</span>
+                                <button class="qty-btn" onclick="changeQty('trufa-morango', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trufa de Amendoim -->
+                <article class="product-card" data-id="trufa-amendoim" data-name="Trufa de Amendoim" data-price="6.5">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&q=80" alt="Trufa de Amendoim - chocolate com pasta de amendoim">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Trufa de Amendoim</h3>
+                        <p class="product-description">Chocolate ao leite com recheio cremoso de pasta de amendoim e pedacinhos crocantes. Irresistivel.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 6,50</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('trufa-amendoim', -1)">-</button>
+                                <span class="qty-display" id="qty-trufa-amendoim">0</span>
+                                <button class="qty-btn" onclick="changeQty('trufa-amendoim', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Analytics Section -->
-        <section id="analytics" class="content-section">
-            <div class="stats-cards">
-                <div class="stat-card">
-                    <h3>Produto Mais Vendido</h3>
-                    <div class="value" id="bestProduct" style="font-size: 1.8rem; font-weight: 700;">Trufa Ninho & Nutella</div>
-                    <div style="color: var(--warning); font-size: 0.9rem; margin-top: 8px;">
-                        <i class="fas fa-chart-line"></i> 62 vendas
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h3>Valor Total em Estoque</h3>
-                    <div class="value" id="stockValue" style="font-size: 1.8rem; font-weight: 700;">R$ 2.984,00</div>
-                    <div style="color: var(--success); font-size: 0.9rem; margin-top: 8px;">
-                        <i class="fas fa-calculator"></i> Valor estimado
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h3>Média de Preço</h3>
-                    <div class="value" id="avgPrice" style="font-size: 1.8rem; font-weight: 700;">R$ 11,73</div>
-                    <div style="color: var(--info); font-size: 0.9rem; margin-top: 8px;">
-                        <i class="fas fa-dollar-sign"></i> Por produto
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <h3>Categoria Mais Popular</h3>
-                    <div class="value" id="popularCategory" style="font-size: 1.8rem; font-weight: 700;">Trufas</div>
-                    <div style="color: var(--primary-gold); font-size: 0.9rem; margin-top: 8px;">
-                        <i class="fas fa-chart-pie"></i> 5 produtos
-                    </div>
-                </div>
+        <!-- BOLOS DE POTE -->
+        <section class="section" id="bolos">
+            <div class="section-header">
+                <h2 class="section-title">Bolos de Pote</h2>
+                <span class="section-subtitle">8 sabores para cada ocasiao</span>
             </div>
+            <div class="products-grid">
+                <!-- Red Velvet -->
+                <article class="product-card" data-id="bolo-red-velvet" data-name="Bolo de Pote Red Velvet" data-price="14">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1586788680434-30d324b2d46f?w=600&q=80" alt="Bolo de Pote Red Velvet com cream cheese">
+                        <span class="product-badge">Favorito</span>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Red Velvet</h3>
+                        <p class="product-description">Camadas de massa macia vermelha intercaladas com cremoso frosting de cream cheese. Um classico sofisticado.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 14,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('bolo-red-velvet', -1)">-</button>
+                                <span class="qty-display" id="qty-bolo-red-velvet">0</span>
+                                <button class="qty-btn" onclick="changeQty('bolo-red-velvet', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
-                <div class="chart-container">
-                    <h3 style="margin-bottom: 20px;"><i class="fas fa-chart-pie"></i> Distribuição por Categoria</h3>
-                    <canvas id="categoryChart" style="width: 100%; height: 300px;"></canvas>
-                </div>
-                <div class="chart-container">
-                    <h3 style="margin-bottom: 20px;"><i class="fas fa-chart-bar"></i> Vendas por Produto</h3>
-                    <canvas id="salesChart" style="width: 100%; height: 300px;"></canvas>
-                </div>
-            </div>
+                <!-- Ninho com Morango -->
+                <article class="product-card" data-id="bolo-ninho-morango" data-name="Bolo de Pote Ninho com Morango" data-price="14">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&q=80" alt="Bolo de Pote Ninho com Morango fresco">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Ninho com Morango</h3>
+                        <p class="product-description">Massa fofinha com creme de leite ninho e pedacos generosos de morango fresco. Docura irresistivel.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 14,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('bolo-ninho-morango', -1)">-</button>
+                                <span class="qty-display" id="qty-bolo-ninho-morango">0</span>
+                                <button class="qty-btn" onclick="changeQty('bolo-ninho-morango', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
-            <div class="chart-container" style="margin-top: 20px;">
-                <h3 style="margin-bottom: 20px;"><i class="fas fa-boxes"></i> Estoque por Categoria</h3>
-                <div id="stockByCategory" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-                    <!-- Estoque por categoria carregado via JavaScript -->
-                </div>
+                <!-- Brigadeiro Belga -->
+                <article class="product-card" data-id="bolo-brigadeiro" data-name="Bolo de Pote Brigadeiro Belga" data-price="13">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80" alt="Bolo de Pote Brigadeiro Belga com chocolate intenso">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Brigadeiro Belga</h3>
+                        <p class="product-description">Massa de chocolate com camadas generosas de brigadeiro belga. Chocolate intenso e macio em cada colherada.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 13,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('bolo-brigadeiro', -1)">-</button>
+                                <span class="qty-display" id="qty-bolo-brigadeiro">0</span>
+                                <button class="qty-btn" onclick="changeQty('bolo-brigadeiro', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Doce de Leite -->
+                <article class="product-card" data-id="bolo-doce-leite" data-name="Bolo de Pote Doce de Leite" data-price="13">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80" alt="Bolo de Pote Doce de Leite cremoso">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Doce de Leite</h3>
+                        <p class="product-description">Massa amanteigada com camadas de doce de leite argentino. Caramelo suave e aveludado em cada camada.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 13,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('bolo-doce-leite', -1)">-</button>
+                                <span class="qty-display" id="qty-bolo-doce-leite">0</span>
+                                <button class="qty-btn" onclick="changeQty('bolo-doce-leite', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pistache -->
+                <article class="product-card" data-id="bolo-pistache" data-name="Bolo de Pote Pistache" data-price="15">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1519869325930-281384f0e80d?w=600&q=80" alt="Bolo de Pote Pistache premium">
+                        <span class="product-badge">Premium</span>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Pistache</h3>
+                        <p class="product-description">Massa verde de pistache com creme italiano e pedacos crocantes. Sabor sofisticado e unico.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 15,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('bolo-pistache', -1)">-</button>
+                                <span class="qty-display" id="qty-bolo-pistache">0</span>
+                                <button class="qty-btn" onclick="changeQty('bolo-pistache', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Baunilha & Amendoas -->
+                <article class="product-card" data-id="bolo-baunilha" data-name="Bolo de Pote Baunilha e Amendoas" data-price="13">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=600&q=80" alt="Bolo de Pote Baunilha com Amendoas">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Baunilha e Amendoas</h3>
+                        <p class="product-description">Massa de baunilha natural com creme de amendoas e lascas torradas. Notas delicadas e elegantes.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 13,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('bolo-baunilha', -1)">-</button>
+                                <span class="qty-display" id="qty-bolo-baunilha">0</span>
+                                <button class="qty-btn" onclick="changeQty('bolo-baunilha', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Churros -->
+                <article class="product-card" data-id="bolo-churros" data-name="Bolo de Pote Churros" data-price="14">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=80" alt="Bolo de Pote Churros com canela">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Churros</h3>
+                        <p class="product-description">Massa com canela e acucar, recheada com doce de leite cremoso. O sabor classico do churros em colheradas.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 14,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('bolo-churros', -1)">-</button>
+                                <span class="qty-display" id="qty-bolo-churros">0</span>
+                                <button class="qty-btn" onclick="changeQty('bolo-churros', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Maracuja -->
+                <article class="product-card" data-id="bolo-maracuja" data-name="Bolo de Pote Maracuja" data-price="14">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80" alt="Bolo de Pote Maracuja cremoso">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Maracuja</h3>
+                        <p class="product-description">Massa leve com mousse de maracuja e calda da fruta. Cremoso com toque citrico refrescante.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 14,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('bolo-maracuja', -1)">-</button>
+                                <span class="qty-display" id="qty-bolo-maracuja">0</span>
+                                <button class="qty-btn" onclick="changeQty('bolo-maracuja', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 
-        <!-- Orders Section -->
-        <section id="orders" class="content-section">
-            <div class="search-filter">
-                <div class="search-box">
-                    <input type="text" id="orderSearch" placeholder="Buscar pedidos por cliente ou ID...">
-                    <i class="fas fa-search"></i>
-                </div>
-                <button class="btn btn-primary" onclick="addSampleOrder()">
-                    <i class="fas fa-plus"></i> Adicionar Pedido de Teste
-                </button>
+        <!-- COMBOS -->
+        <section class="section" id="combos">
+            <div class="section-header">
+                <h2 class="section-title">Combos Especiais</h2>
+                <span class="section-subtitle">8 combinacoes para compartilhar</span>
             </div>
+            <div class="products-grid">
+                <!-- Duo de Trufas -->
+                <article class="product-card" data-id="combo-duo-trufas" data-name="Combo Duo de Trufas" data-price="24">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80" alt="Combo Duo de Trufas sortidas">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Duo de Trufas</h3>
+                        <p class="product-description">4 trufas sortidas escolhidas a mao. Perfeito para experimentar diferentes sabores em uma so compra.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 24,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('combo-duo-trufas', -1)">-</button>
+                                <span class="qty-display" id="qty-combo-duo-trufas">0</span>
+                                <button class="qty-btn" onclick="changeQty('combo-duo-trufas', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
-            <div class="table-container">
-                <div style="padding: 20px; border-bottom: 1px solid var(--border);">
-                    <h3 style="font-weight: 600; display: flex; align-items: center; gap: 10px;">
-                        <i class="fas fa-shopping-bag"></i> Histórico de Pedidos
-                    </h3>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Produtos</th>
-                            <th>Data</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersBody">
-                        <tr>
-                            <td colspan="7" class="empty-state">
-                                <i class="fas fa-shopping-bag"></i>
-                                <p>Nenhum pedido registrado ainda</p>
-                                <button class="btn btn-primary" onclick="addSampleOrder()" style="margin-top: 20px;">
-                                    <i class="fas fa-plus"></i> Adicionar Pedido de Teste
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- Classico -->
+                <article class="product-card" data-id="combo-classico" data-name="Combo Classico" data-price="32">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80" alt="Combo Classico com bolos e trufas">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Combo Classico</h3>
+                        <p class="product-description">2 bolos de pote + 2 trufas a sua escolha. A combinacao perfeita para um lanche especial.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 32,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('combo-classico', -1)">-</button>
+                                <span class="qty-display" id="qty-combo-classico">0</span>
+                                <button class="qty-btn" onclick="changeQty('combo-classico', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Mint -->
+                <article class="product-card" data-id="combo-mint" data-name="Combo Mint" data-price="34">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80" alt="Combo Mint com sabores refrescantes">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Combo Mint</h3>
+                        <p class="product-description">Trufas citricas + bolo de pote de pistache. Sabores refrescantes e sofisticados reunidos.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 34,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('combo-mint', -1)">-</button>
+                                <span class="qty-display" id="qty-combo-mint">0</span>
+                                <button class="qty-btn" onclick="changeQty('combo-mint', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Amanhecer -->
+                <article class="product-card" data-id="combo-amanhecer" data-name="Combo Amanhecer" data-price="36">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80" alt="Combo Amanhecer com frutas">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Combo Amanhecer</h3>
+                        <p class="product-description">Selecao cremosa com frutas frescas. Ideal para comecar o dia com sabor e energia.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 36,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('combo-amanhecer', -1)">-</button>
+                                <span class="qty-display" id="qty-combo-amanhecer">0</span>
+                                <button class="qty-btn" onclick="changeQty('combo-amanhecer', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Familia -->
+                <article class="product-card" data-id="combo-familia" data-name="Combo Familia" data-price="48">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=600&q=80" alt="Combo Familia para compartilhar">
+                        <span class="product-badge">Mais Vendido</span>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Combo Familia</h3>
+                        <p class="product-description">4 bolos de pote + 6 trufas sortidas. Perfeito para reunioes em familia ou com amigos.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 48,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('combo-familia', -1)">-</button>
+                                <span class="qty-display" id="qty-combo-familia">0</span>
+                                <button class="qty-btn" onclick="changeQty('combo-familia', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Experiencia Lagom -->
+                <article class="product-card" data-id="combo-experiencia" data-name="Combo Experiencia Lagom" data-price="54">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?w=600&q=80" alt="Combo Experiencia Lagom premium">
+                        <span class="product-badge">Premium</span>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Experiencia Lagom</h3>
+                        <p class="product-description">Mix premium para ocasioes especiais. Selecao dos melhores produtos da casa em uma experiencia completa.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 54,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('combo-experiencia', -1)">-</button>
+                                <span class="qty-display" id="qty-combo-experiencia">0</span>
+                                <button class="qty-btn" onclick="changeQty('combo-experiencia', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Degustacao -->
+                <article class="product-card" data-id="combo-degustacao" data-name="Combo Degustacao" data-price="42">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1582716401301-b2407dc7563d?w=600&q=80" alt="Combo Degustacao com trufas sortidas">
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Combo Degustacao</h3>
+                        <p class="product-description">8 trufas sortidas para provar todos os sabores. A melhor forma de conhecer nossa linha de trufas.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 42,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('combo-degustacao', -1)">-</button>
+                                <span class="qty-display" id="qty-combo-degustacao">0</span>
+                                <button class="qty-btn" onclick="changeQty('combo-degustacao', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Presente Especial -->
+                <article class="product-card" data-id="combo-presente" data-name="Combo Presente Especial" data-price="58">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=600&q=80" alt="Combo Presente Especial em caixa gift">
+                        <span class="product-badge">Gift</span>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-name">Presente Especial</h3>
+                        <p class="product-description">Selecao completa em caixa gift especial. O presente perfeito para surpreender quem voce ama.</p>
+                        <div class="product-footer">
+                            <span class="product-price">R$ 58,00</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('combo-presente', -1)">-</button>
+                                <span class="qty-display" id="qty-combo-presente">0</span>
+                                <button class="qty-btn" onclick="changeQty('combo-presente', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 
-    <!-- Notification -->
-    <div id="notification" class="notification" style="display: none;">
-        <i id="notificationIcon"></i>
-        <span id="notificationMessage"></span>
+    <!-- CART FOOTER -->
+    <div class="cart-footer" id="cart-footer">
+        <div class="cart-footer-content">
+            <div class="cart-info">
+                <div class="cart-icon">🛒</div>
+                <div class="cart-details">
+                    <span class="cart-items-count" id="cart-items-count">0 itens</span>
+                    <span class="cart-total" id="cart-total">R$ 0,00</span>
+                </div>
+            </div>
+            <div style="display:flex; gap:12px;">
+            <button class="clear-cart-btn" onclick="clearCart()">🧹 Limpar carrinho</button>
+            <button class="checkout-btn">Finalizar pedido</button>
+        </div>
     </div>
 
     <script>
-        // Sistema Admin - Doce Lagom
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeAdmin();
-        });
+        const cart = {};
+        let totalValue = 0;
+        let totalItems = 0;
 
-        let adminData = {
-            products: [],
-            orders: []
-        };
-
-        function initializeAdmin() {
-            loadAdminData();
-            setupEventListeners();
-            updateCurrentDate();
-            showNotification('Painel admin carregado com todos os produtos!', 'success');
+        function formatCurrency(value) {
+            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         }
 
-        function loadAdminData() {
-            // Carregar produtos padrão (todos os 11 produtos)
-            adminData.products = getDefaultProducts();
-            
-            // Tentar carregar do localStorage
-            try {
-                const savedProducts = localStorage.getItem('doce_lagom_products');
-                const savedOrders = localStorage.getItem('doce_lagom_orders');
-                
-                if (savedProducts) adminData.products = JSON.parse(savedProducts);
-                if (savedOrders) adminData.orders = JSON.parse(savedOrders);
-            } catch (e) {
-                console.log('Usando dados padrão');
-            }
-            
-            updateAllSections();
-        }
+        function changeQty(id, change) {
+            const card = document.querySelector(`[data-id="${id}"]`);
+            if (!card) return;
 
-        function getDefaultProducts() {
-            return [
-                {
-                    id: 1,
-                    name: 'Trufa de Maracujá',
-                    category: 'trufas',
-                    price: 6.00,
-                    stock: 25,
-                    image: 'https://i.ibb.co/d4wBYTPT/b6e504dc-ee33-4c3e-9be3-721ed8f5c3b7.jpg',
-                    description: 'Recheio cremoso de maracujá com toque cítrico e refrescante.',
-                    featured: true,
-                    tags: ['Favorito', 'Premium', 'Frutas'],
-                    sales: 45,
-                    createdAt: '2024-01-15'
-                },
-                {
-                    id: 2,
-                    name: 'Trufa Ninho & Nutella',
-                    category: 'trufas',
-                    price: 6.00,
-                    stock: 18,
-                    image: 'https://i.ibb.co/HfcWPzqz/image.png',
-                    description: 'Combinação irresistível de leite ninho com Nutella cremosa.',
-                    featured: true,
-                    tags: ['Favorito', 'Mais Pedido', 'Clássico'],
-                    sales: 62,
-                    createdAt: '2024-01-10'
-                },
-                {
-                    id: 3,
-                    name: 'Trufa de Paçoca',
-                    category: 'trufas',
-                    price: 6.00,
-                    stock: 22,
-                    image: 'https://i.ibb.co/JjrwS6gV/4e7c1bd3-101a-47cd-8f6c-dbbaf1f42caf.jpg',
-                    description: 'Sabor brasileiro autêntico com amendoim crocante e doce.',
-                    featured: false,
-                    tags: ['Tradicional', 'Brasileiro'],
-                    sales: 38,
-                    createdAt: '2024-01-20'
-                },
-                {
-                    id: 4,
-                    name: 'Trufa de Brigadeiro',
-                    category: 'trufas',
-                    price: 6.00,
-                    stock: 30,
-                    image: 'https://i.ibb.co/N6t7CY4c/91d96de8-2f80-48fa-a370-7d775f17eb8d.jpg',
-                    description: 'O clássico brasileiro, cremoso e coberto com chocolate granulado.',
-                    featured: false,
-                    tags: ['Clássico', 'Brasileiro'],
-                    sales: 55,
-                    createdAt: '2024-01-05'
-                },
-                {
-                    id: 5,
-                    name: 'Trufa de Café',
-                    category: 'trufas',
-                    price: 6.00,
-                    stock: 15,
-                    image: 'https://i.ibb.co/0jmQ2JwH/91d96de8-2f80-48fa-a370-7d775f17eb8d.jpg',
-                    description: 'Para os amantes de café, com sabor intenso e aromático.',
-                    featured: false,
-                    tags: ['Especial', 'Adulto'],
-                    sales: 28,
-                    createdAt: '2024-01-25'
-                },
-                {
-                    id: 6,
-                    name: 'Bolo de Pote Ninho & Nutella',
-                    category: 'bolos',
-                    price: 15.00,
-                    stock: 12,
-                    image: 'https://i.ibb.co/vxf8TJDv/Cantinho-da-G-Wordmark-Logo-1.png',
-                    description: 'Camadas de creme de leite ninho com Nutella.',
-                    featured: false,
-                    tags: ['Bolo', 'Pote', 'Cremoso'],
-                    sales: 40,
-                    createdAt: '2024-01-18'
-                },
-                {
-                    id: 7,
-                    name: 'Bolo de Pote de Maracujá',
-                    category: 'bolos',
-                    price: 15.00,
-                    stock: 10,
-                    image: 'https://i.ibb.co/gFXm5yhG/Cantinho-da-G-Wordmark-Logo.png',
-                    description: 'Bolo macio com mousse de maracujá fresquinho.',
-                    featured: false,
-                    tags: ['Bolo', 'Pote', 'Frutas'],
-                    sales: 35,
-                    createdAt: '2024-01-22'
-                },
-                {
-                    id: 8,
-                    name: 'Bolo de Pote de Chocolate',
-                    category: 'bolos',
-                    price: 15.00,
-                    stock: 14,
-                    image: 'https://i.ibb.co/wZkd0tZ8/image.png',
-                    description: 'Puro cacau com ganache cremosa e irresistível.',
-                    featured: false,
-                    tags: ['Bolo', 'Pote', 'Chocolate'],
-                    sales: 48,
-                    createdAt: '2024-01-12'
-                },
-                {
-                    id: 9,
-                    name: 'Kit Degustação',
-                    category: 'combos',
-                    price: 15.00,
-                    stock: 8,
-                    image: 'https://i.ibb.co/gFSmx2Cy/f1f2641a-3653-437d-b84f-52be0901330a.jpg',
-                    description: '5 mini trufas sortidas para você experimentar.',
-                    featured: true,
-                    tags: ['Combo', 'Especial', 'Degustação'],
-                    sales: 25,
-                    createdAt: '2024-01-08'
-                },
-                {
-                    id: 10,
-                    name: 'Combo Trio Médias',
-                    category: 'combos',
-                    price: 15.00,
-                    stock: 20,
-                    image: 'https://i.ibb.co/7xV904Pc/image.png',
-                    description: 'Escolha 3 trufas médias dos sabores disponíveis.',
-                    featured: true,
-                    tags: ['Combo', 'Mais Pedido', 'Personalizável'],
-                    sales: 32,
-                    createdAt: '2024-01-14'
-                },
-                {
-                    id: 11,
-                    name: 'Duo Lagom',
-                    category: 'combos',
-                    price: 20.00,
-                    stock: 15,
-                    image: 'https://i.ibb.co/mrr6sf9j/image.png',
-                    description: '1 bolo de pote + 1 trufa média a sua escolha.',
-                    featured: true,
-                    tags: ['Combo', 'Favorito', 'Completo'],
-                    sales: 28,
-                    createdAt: '2024-01-30'
-                }
-            ];
-        }
+            const name = card.dataset.name;
+            const price = Number(card.dataset.price);
 
-        function saveAllData() {
-            localStorage.setItem('doce_lagom_products', JSON.stringify(adminData.products));
-            localStorage.setItem('doce_lagom_orders', JSON.stringify(adminData.orders));
-        }
-
-        function updateAllSections() {
-            updateDashboard();
-            updateProductsSection();
-            updateAnalytics();
-            updateOrdersSection();
-            updateCounts();
-        }
-
-        function updateCounts() {
-            document.getElementById('productsCount').textContent = adminData.products.length;
-            document.getElementById('ordersCount').textContent = adminData.orders.filter(o => o.status === 'pending').length;
-            
-            // Atualizar contador de estoque baixo
-            const lowStockCount = adminData.products.filter(p => p.stock < 5).length;
-            document.getElementById('lowStockCount').textContent = lowStockCount;
-            
-            // Atualizar contador de produtos em destaque
-            const featuredCount = adminData.products.filter(p => p.featured).length;
-            document.getElementById('featuredProducts').textContent = featuredCount;
-        }
-
-        function updateDashboard() {
-            // Estatísticas gerais
-            document.getElementById('totalProducts').textContent = adminData.products.length;
-            
-            const featuredCount = adminData.products.filter(p => p.featured).length;
-            document.getElementById('featuredProducts').textContent = featuredCount;
-            
-            // Contar categorias únicas
-            const categories = [...new Set(adminData.products.map(p => p.category))];
-            document.getElementById('totalCategories').textContent = categories.length;
-            
-            // Estoque total
-            const totalStock = adminData.products.reduce((sum, p) => sum + p.stock, 0);
-            document.getElementById('totalStock').textContent = totalStock;
-            
-            // Top produtos
-            updateTopProducts();
-        }
-
-        function updateTopProducts() {
-            const topProducts = [...adminData.products]
-                .sort((a, b) => (b.sales || 0) - (a.sales || 0))
-                .slice(0, 4);
-            
-            const container = document.getElementById('topProductsList');
-            container.innerHTML = topProducts.map(product => `
-                <div style="background: white; border-radius: var(--radius); padding: 15px; border: 1px solid var(--border);">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
-                        <img src="${product.image}" alt="${product.name}" 
-                             style="width: 50px; height: 50px; border-radius: var(--radius); object-fit: cover;"
-                             onerror="this.src='https://via.placeholder.com/50?text=Produto'">
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary);">${product.name}</div>
-                            <div style="font-size: 0.8rem; color: var(--text-secondary);">${product.category}</div>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Vendas</div>
-                            <div style="font-weight: 700; color: var(--primary-gold);">${product.sales || 0}</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Preço</div>
-                            <div style="font-weight: 700; color: var(--success);">R$ ${product.price.toFixed(2)}</div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updateProductsSection() {
-            const grid = document.getElementById('productsGrid');
-            
-            if (adminData.products.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-box"></i>
-                        <p>Nenhum produto cadastrado</p>
-                        <button class="btn btn-primary" onclick="showSection('add-product')" style="margin-top: 20px;">
-                            <i class="fas fa-plus"></i> Adicionar Primeiro Produto
-                        </button>
-                    </div>
-                `;
-                return;
+            if (!cart[id]) {
+                cart[id] = { name, qty: 0, price };
             }
 
-            grid.innerHTML = adminData.products.map(product => {
-                // Determinar status do estoque
-                let stockClass, stockText;
-                if (product.stock === 0) {
-                    stockClass = 'stock-low';
-                    stockText = 'Sem Estoque';
-                } else if (product.stock < 5) {
-                    stockClass = 'stock-low';
-                    stockText = 'Estoque Crítico';
-                } else if (product.stock < 10) {
-                    stockClass = 'stock-medium';
-                    stockText = 'Estoque Baixo';
-                } else {
-                    stockClass = 'stock-high';
-                    stockText = 'Em Estoque';
-                }
-                
-                // Gerar tags HTML
-                const tagsHtml = product.tags && product.tags.length > 0 
-                    ? `<div class="product-tags">
-                        ${product.tags.map(tag => `<span class="product-tag">${tag}</span>`).join('')}
-                       </div>`
-                    : '';
-                
-                return `
-                    <div class="product-card">
-                        <div style="position: relative;">
-                            <img src="${product.image}" alt="${product.name}" class="product-image"
-                                 onerror="this.src='https://via.placeholder.com/400x250/FAF9F7/C9A962?text=${encodeURIComponent(product.name)}'">
-                            ${product.featured ? '<div class="featured-star" style="position: absolute; top: 10px; right: 10px;"><i class="fas fa-star"></i></div>' : ''}
-                        </div>
-                        
-                        <div class="product-info">
-                            <div class="product-header">
-                                <div>
-                                    <div class="product-title">${product.name}</div>
-                                    <span class="product-category">${product.category}</span>
-                                </div>
-                            </div>
-                            
-                            ${tagsHtml}
-                            
-                            <p class="product-desc">${product.description}</p>
-                            
-                            <div class="product-price">R$ ${product.price.toFixed(2)}</div>
-                            
-                            <div class="product-stats">
-                                <div>
-                                    <span class="stock-status ${stockClass}">
-                                        <i class="fas fa-box"></i> ${product.stock} unidades
-                                    </span>
-                                </div>
-                                <span style="color: var(--text-secondary);">
-                                    <i class="fas fa-shopping-cart"></i> ${product.sales || 0} vendas
-                                </span>
-                            </div>
-                            
-                            <div style="display: flex; gap: 10px; margin-top: 15px;">
-                                <button class="btn btn-sm btn-edit" onclick="editProduct(${product.id})" style="flex: 1;">
-                                    <i class="fas fa-edit"></i> Editar
-                                </button>
-                                <button class="btn btn-sm btn-delete" onclick="deleteProduct(${product.id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            cart[id].qty += change;
+            if (cart[id].qty < 0) cart[id].qty = 0;
+
+            const qtyEl = document.getElementById(`qty-${id}`);
+            if (qtyEl) qtyEl.textContent = cart[id].qty;
+
+            updateCart();
         }
 
-        function updateAnalytics() {
-            // Produto mais vendido
-            if (adminData.products.length > 0) {
-                const bestProduct = adminData.products.reduce((best, current) => 
-                    (current.sales || 0) > (best.sales || 0) ? current : best
-                );
-                document.getElementById('bestProduct').textContent = bestProduct.name;
-            }
+        function updateCart() {
+            const cartFooter = document.getElementById('cart-footer');
+            const itemsCount = document.getElementById('cart-items-count');
+            const totalEl = document.getElementById('cart-total');
 
-            // Valor total em estoque
-            const stockValue = adminData.products.reduce((sum, p) => sum + (p.price * p.stock), 0);
-            document.getElementById('stockValue').textContent = `R$ ${stockValue.toFixed(2)}`;
+            totalValue = 0;
+            totalItems = 0;
+            let hasItems = false;
 
-            // Média de preço
-            const avgPrice = adminData.products.reduce((sum, p) => sum + p.price, 0) / adminData.products.length;
-            document.getElementById('avgPrice').textContent = `R$ ${avgPrice.toFixed(2)}`;
-
-            // Categoria mais popular
-            const categoryCount = {};
-            adminData.products.forEach(p => {
-                categoryCount[p.category] = (categoryCount[p.category] || 0) + 1;
-            });
-            const popularCategory = Object.entries(categoryCount).reduce((a, b) => a[1] > b[1] ? a : b)[0];
-            document.getElementById('popularCategory').textContent = popularCategory.charAt(0).toUpperCase() + popularCategory.slice(1);
-
-            // Gráficos
-            updateCharts();
-            updateStockByCategory();
-        }
-
-        function updateCharts() {
-            // Gráfico de categorias
-            const categoryData = {};
-            adminData.products.forEach(p => {
-                categoryData[p.category] = (categoryData[p.category] || 0) + 1;
-            });
-
-            const ctx1 = document.getElementById('categoryChart')?.getContext('2d');
-            if (ctx1) {
-                if (window.categoryChart) window.categoryChart.destroy();
-                
-                window.categoryChart = new Chart(ctx1, {
-                    type: 'doughnut',
-                    data: {
-                        labels: Object.keys(categoryData).map(c => c.charAt(0).toUpperCase() + c.slice(1)),
-                        datasets: [{
-                            data: Object.values(categoryData),
-                            backgroundColor: ['#c9a962', '#d4a5a5', '#9bb7d4', '#8fd9a8', '#f4b393'],
-                            borderWidth: 2,
-                            borderColor: '#ffffff'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                            },
-                            title: {
-                                display: true,
-                                text: 'Produtos por Categoria'
-                            }
-                        }
-                    }
-                });
-            }
-
-            // Gráfico de vendas
-            const topProductsForChart = [...adminData.products]
-                .sort((a, b) => (b.sales || 0) - (a.sales || 0))
-                .slice(0, 5);
-
-            const ctx2 = document.getElementById('salesChart')?.getContext('2d');
-            if (ctx2) {
-                if (window.salesChart) window.salesChart.destroy();
-                
-                window.salesChart = new Chart(ctx2, {
-                    type: 'bar',
-                    data: {
-                        labels: topProductsForChart.map(p => p.name.substring(0, 15) + (p.name.length > 15 ? '...' : '')),
-                        datasets: [{
-                            label: 'Vendas',
-                            data: topProductsForChart.map(p => p.sales || 0),
-                            backgroundColor: '#c9a962',
-                            borderColor: '#b89958',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            title: {
-                                display: true,
-                                text: 'Top 5 Produtos Mais Vendidos'
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    stepSize: 10
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        function updateStockByCategory() {
-            const categoryStock = {};
-            adminData.products.forEach(p => {
-                categoryStock[p.category] = (categoryStock[p.category] || 0) + p.stock;
-            });
-
-            const container = document.getElementById('stockByCategory');
-            container.innerHTML = Object.entries(categoryStock).map(([category, stock]) => {
-                const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
-                const productsInCategory = adminData.products.filter(p => p.category === category).length;
-                
-                return `
-                    <div style="background: white; border-radius: var(--radius); padding: 20px; border-left: 4px solid var(--primary-gold);">
-                        <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 5px;">
-                            ${categoryName}
-                        </div>
-                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary-gold); margin: 10px 0;">
-                            ${stock}
-                        </div>
-                        <div style="font-size: 0.85rem; color: var(--text-secondary);">
-                            <i class="fas fa-box"></i> ${productsInCategory} produtos
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function updateOrdersSection() {
-            const tbody = document.getElementById('ordersBody');
-            
-            if (adminData.orders.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="empty-state">
-                            <i class="fas fa-shopping-bag"></i>
-                            <p>Nenhum pedido registrado ainda</p>
-                            <button class="btn btn-primary" onclick="addSampleOrder()" style="margin-top: 20px;">
-                                <i class="fas fa-plus"></i> Adicionar Pedido de Teste
-                            </button>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            tbody.innerHTML = adminData.orders.map(order => {
-                const statusClass = `status-${order.status || 'pending'}`;
-                const statusText = getStatusText(order.status);
-                
-                return `
-                    <tr>
-                        <td><strong>${order.id || 'N/A'}</strong></td>
-                        <td>${order.customerName || 'Cliente'}</td>
-                        <td>${order.items ? order.items.join(', ') : 'N/A'}</td>
-                        <td>${order.date ? new Date(order.date).toLocaleDateString('pt-BR') : 'N/A'}</td>
-                        <td><strong>R$ ${order.total?.toFixed(2) || '0,00'}</strong></td>
-                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-sm btn-view" onclick="viewOrder('${order.id}')">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="btn btn-sm btn-delete" onclick="deleteOrder('${order.id}')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-        }
-
-        function getStatusText(status) {
-            const statusMap = {
-                'pending': 'Pendente',
-                'processing': 'Processando',
-                'delivered': 'Entregue',
-                'cancelled': 'Cancelado'
-            };
-            return statusMap[status] || 'Pendente';
-        }
-
-        // CRUD para Produtos
-        function saveProduct() {
-            const product = {
-                id: Date.now(),
-                name: document.getElementById('productName').value,
-                category: document.getElementById('productCategory').value,
-                price: parseFloat(document.getElementById('productPrice').value),
-                stock: parseInt(document.getElementById('productStock').value) || 0,
-                image: document.getElementById('productImageURL').value,
-                description: document.getElementById('productDescription').value,
-                featured: document.getElementById('productFeatured').checked,
-                sales: 0,
-                createdAt: new Date().toISOString()
-            };
-
-            // Processar tags
-            const tagsInput = document.getElementById('productTags').value;
-            if (tagsInput) {
-                product.tags = tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag);
-            }
-
-            // Validação
-            if (!product.name || !product.category || !product.price || !product.image || !product.description) {
-                showNotification('Preencha todos os campos obrigatórios!', 'error');
-                return;
-            }
-
-            if (product.price <= 0) {
-                showNotification('O preço deve ser maior que zero!', 'error');
-                return;
-            }
-
-            adminData.products.push(product);
-            saveAllData();
-            updateAllSections();
-            showNotification('Produto adicionado com sucesso!', 'success');
-            
-            // Limpar formulário
-            document.getElementById('productName').value = '';
-            document.getElementById('productCategory').value = '';
-            document.getElementById('productPrice').value = '';
-            document.getElementById('productStock').value = '10';
-            document.getElementById('productImageURL').value = '';
-            document.getElementById('productDescription').value = '';
-            document.getElementById('productTags').value = '';
-            
-            showSection('products');
-        }
-
-        function editProduct(productId) {
-            const product = adminData.products.find(p => p.id === productId);
-            if (!product) return;
-
-            // Preencher formulário
-            document.getElementById('productName').value = product.name;
-            document.getElementById('productCategory').value = product.category;
-            document.getElementById('productPrice').value = product.price;
-            document.getElementById('productStock').value = product.stock;
-            document.getElementById('productImageURL').value = product.image;
-            document.getElementById('productDescription').value = product.description;
-            document.getElementById('productFeatured').checked = product.featured;
-            document.getElementById('productTags').value = product.tags ? product.tags.join(', ') : '';
-
-            // Alterar título e botão
-            document.querySelector('#add-product h3').innerHTML = '<i class="fas fa-edit"></i> Editar Produto';
-            const saveBtn = document.querySelector('#add-product .btn-primary');
-            saveBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar Produto';
-            saveBtn.onclick = function() { updateProduct(productId); };
-
-            showSection('add-product');
-        }
-
-        function updateProduct(productId) {
-            const index = adminData.products.findIndex(p => p.id === productId);
-            if (index === -1) return;
-
-            const tagsInput = document.getElementById('productTags').value;
-            
-            adminData.products[index] = {
-                ...adminData.products[index],
-                name: document.getElementById('productName').value,
-                category: document.getElementById('productCategory').value,
-                price: parseFloat(document.getElementById('productPrice').value),
-                stock: parseInt(document.getElementById('productStock').value) || 0,
-                image: document.getElementById('productImageURL').value,
-                description: document.getElementById('productDescription').value,
-                featured: document.getElementById('productFeatured').checked,
-                tags: tagsInput ? tagsInput.split(',').map(tag => tag.trim()).filter(tag => tag) : [],
-                updatedAt: new Date().toISOString()
-            };
-
-            saveAllData();
-            updateAllSections();
-            showNotification('Produto atualizado com sucesso!', 'success');
-            
-            // Resetar formulário
-            document.querySelector('#add-product h3').innerHTML = '<i class="fas fa-plus-circle"></i> Adicionar Novo Produto';
-            const saveBtn = document.querySelector('#add-product .btn-primary');
-            saveBtn.innerHTML = '<i class="fas fa-save"></i> Salvar Produto';
-            saveBtn.onclick = function() { saveProduct(); };
-            
-            showSection('products');
-        }
-
-        function deleteProduct(productId) {
-            if (confirm('Tem certeza que deseja excluir este produto? Esta ação não pode ser desfeita.')) {
-                adminData.products = adminData.products.filter(p => p.id !== productId);
-                saveAllData();
-                updateAllSections();
-                showNotification('Produto excluído com sucesso!', 'success');
-            }
-        }
-
-        // Funções para Pedidos
-        function addSampleOrder() {
-            const sampleOrder = {
-                id: 'ORD-' + Date.now().toString().slice(-6),
-                customerName: 'Cliente Teste',
-                items: ['Trufa de Maracujá', 'Bolo de Pote Ninho & Nutella'],
-                date: new Date().toISOString(),
-                total: 21.00,
-                status: 'pending'
-            };
-
-            adminData.orders.unshift(sampleOrder);
-            saveAllData();
-            updateAllSections();
-            showNotification('Pedido de teste adicionado!', 'success');
-        }
-
-        function viewOrder(orderId) {
-            const order = adminData.orders.find(o => o.id === orderId);
-            if (!order) {
-                alert('Pedido não encontrado');
-                return;
-            }
-            
-            alert(`📦 Detalhes do Pedido:\n\nID: ${order.id}\nCliente: ${order.customerName}\nItens: ${order.items?.join(', ') || 'N/A'}\nTotal: R$ ${order.total?.toFixed(2) || '0,00'}\nStatus: ${getStatusText(order.status)}\nData: ${new Date(order.date).toLocaleDateString('pt-BR')}`);
-        }
-
-        function deleteOrder(orderId) {
-            if (confirm('Excluir este pedido?')) {
-                adminData.orders = adminData.orders.filter(o => o.id !== orderId);
-                saveAllData();
-                updateAllSections();
-                showNotification('Pedido excluído!', 'success');
-            }
-        }
-
-        // Funções de Busca e Filtro
-        function searchProducts() {
-            const searchTerm = document.getElementById('productSearch').value.toLowerCase();
-            if (!searchTerm) {
-                updateProductsSection();
-                return;
-            }
-
-            const filteredProducts = adminData.products.filter(product =>
-                product.name.toLowerCase().includes(searchTerm) ||
-                product.category.toLowerCase().includes(searchTerm) ||
-                product.description.toLowerCase().includes(searchTerm) ||
-                (product.tags && product.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-            );
-
-            renderFilteredProducts(filteredProducts);
-        }
-
-        function filterProducts() {
-            const categoryFilter = document.getElementById('productCategoryFilter').value;
-            const stockFilter = document.getElementById('productStockFilter').value;
-            const featuredFilter = document.getElementById('productFeaturedFilter').value;
-            
-            let filteredProducts = adminData.products;
-            
-            if (categoryFilter !== 'all') {
-                filteredProducts = filteredProducts.filter(p => p.category === categoryFilter);
-            }
-            
-            if (stockFilter !== 'all') {
-                switch(stockFilter) {
-                    case 'high':
-                        filteredProducts = filteredProducts.filter(p => p.stock > 10);
-                        break;
-                    case 'medium':
-                        filteredProducts = filteredProducts.filter(p => p.stock >= 5 && p.stock <= 10);
-                        break;
-                    case 'low':
-                        filteredProducts = filteredProducts.filter(p => p.stock < 5);
-                        break;
-                }
-            }
-            
-            if (featuredFilter !== 'all') {
-                filteredProducts = filteredProducts.filter(p => 
-                    featuredFilter === 'featured' ? p.featured : !p.featured
-                );
-            }
-            
-            renderFilteredProducts(filteredProducts);
-        }
-
-        function renderFilteredProducts(products) {
-            const grid = document.getElementById('productsGrid');
-            
-            if (products.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-search"></i>
-                        <p>Nenhum produto encontrado</p>
-                        <button class="btn" onclick="clearFilters()" style="margin-top: 20px;">
-                            <i class="fas fa-times"></i> Limpar Filtros
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            grid.innerHTML = products.map(product => {
-                let stockClass, stockText;
-                if (product.stock === 0) {
-                    stockClass = 'stock-low';
-                    stockText = 'Sem Estoque';
-                } else if (product.stock < 5) {
-                    stockClass = 'stock-low';
-                    stockText = 'Estoque Crítico';
-                } else if (product.stock < 10) {
-                    stockClass = 'stock-medium';
-                    stockText = 'Estoque Baixo';
-                } else {
-                    stockClass = 'stock-high';
-                    stockText = 'Em Estoque';
-                }
-                
-                const tagsHtml = product.tags && product.tags.length > 0 
-                    ? `<div class="product-tags">
-                        ${product.tags.map(tag => `<span class="product-tag">${tag}</span>`).join('')}
-                       </div>`
-                    : '';
-                
-                return `
-                    <div class="product-card">
-                        <div style="position: relative;">
-                            <img src="${product.image}" alt="${product.name}" class="product-image"
-                                 onerror="this.src='https://via.placeholder.com/400x250/FAF9F7/C9A962?text=${encodeURIComponent(product.name)}'">
-                            ${product.featured ? '<div class="featured-star" style="position: absolute; top: 10px; right: 10px;"><i class="fas fa-star"></i></div>' : ''}
-                        </div>
-                        
-                        <div class="product-info">
-                            <div class="product-header">
-                                <div>
-                                    <div class="product-title">${product.name}</div>
-                                    <span class="product-category">${product.category}</span>
-                                </div>
-                            </div>
-                            
-                            ${tagsHtml}
-                            
-                            <p class="product-desc">${product.description}</p>
-                            
-                            <div class="product-price">R$ ${product.price.toFixed(2)}</div>
-                            
-                            <div class="product-stats">
-                                <div>
-                                    <span class="stock-status ${stockClass}">
-                                        <i class="fas fa-box"></i> ${product.stock} unidades
-                                    </span>
-                                </div>
-                                <span style="color: var(--text-secondary);">
-                                    <i class="fas fa-shopping-cart"></i> ${product.sales || 0} vendas
-                                </span>
-                            </div>
-                            
-                            <div style="display: flex; gap: 10px; margin-top: 15px;">
-                                <button class="btn btn-sm btn-edit" onclick="editProduct(${product.id})" style="flex: 1;">
-                                    <i class="fas fa-edit"></i> Editar
-                                </button>
-                                <button class="btn btn-sm btn-delete" onclick="deleteProduct(${product.id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function clearFilters() {
-            document.getElementById('productSearch').value = '';
-            document.getElementById('productCategoryFilter').value = 'all';
-            document.getElementById('productStockFilter').value = 'all';
-            document.getElementById('productFeaturedFilter').value = 'all';
-            updateProductsSection();
-        }
-
-        // Funções de UI
-        function showSection(sectionId) {
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            document.getElementById(sectionId).classList.add('active');
-            
-            const titles = {
-                'dashboard': 'Dashboard',
-                'orders': 'Pedidos',
-                'products': 'Produtos',
-                'add-product': 'Adicionar Produto',
-                'analytics': 'Análises'
-            };
-            
-            const subtitles = {
-                'dashboard': 'Visão geral da loja',
-                'orders': 'Gerencie todos os pedidos',
-                'products': 'Gerencie seu catálogo',
-                'add-product': 'Adicione novos produtos',
-                'analytics': 'Estatísticas e métricas'
-            };
-            
-            document.getElementById('sectionTitle').textContent = titles[sectionId] || 'Painel';
-            document.getElementById('sectionSubtitle').textContent = subtitles[sectionId] || '';
-            
-            document.querySelectorAll('.sidebar-menu a').forEach(item => {
-                item.classList.remove('active');
-            });
-            const menuItem = document.querySelector(`.sidebar-menu a[href="#${sectionId}"]`);
-            if (menuItem) menuItem.classList.add('active');
-            
-            if (window.innerWidth <= 1024) {
-                document.getElementById('sidebar').classList.remove('active');
-            }
-        }
-
-        function showNotification(message, type = 'success') {
-            const notification = document.getElementById('notification');
-            const icon = document.getElementById('notificationIcon');
-            const messageEl = document.getElementById('notificationMessage');
-            
-            notification.className = `notification ${type}`;
-            icon.className = `fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'exclamation-triangle'}`;
-            messageEl.textContent = message;
-            
-            notification.style.display = 'flex';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        }
-
-        function refreshData() {
-            showNotification('Dados atualizados!', 'success');
-            updateAllSections();
-        }
-
-        function updateCurrentDate() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('pt-BR', options);
-        }
-
-        function exportProducts() {
-            const dataStr = JSON.stringify(adminData.products, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = 'doce-lagom-produtos.json';
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            showNotification('Produtos exportados com sucesso!', 'success');
-        }
-
-        function showLowStockProducts() {
-            document.getElementById('productStockFilter').value = 'low';
-            showSection('products');
-            filterProducts();
-        }
-
-        function setupEventListeners() {
-            // Toggle sidebar no mobile
-            document.getElementById('mobileToggle').addEventListener('click', function() {
-                document.getElementById('sidebar').classList.toggle('active');
-            });
-            
-            // Fechar sidebar ao clicar fora (mobile)
-            document.addEventListener('click', function(event) {
-                const sidebar = document.getElementById('sidebar');
-                const toggle = document.getElementById('mobileToggle');
-                
-                if (window.innerWidth <= 1024 && 
-                    sidebar.classList.contains('active') &&
-                    !sidebar.contains(event.target) && 
-                    event.target !== toggle &&
-                    !event.target.closest('.notification')) {
-                    sidebar.classList.remove('active');
+            Object.keys(cart).forEach((itemId) => {
+                const item = cart[itemId];
+                if (item.qty > 0) {
+                    hasItems = true;
+                    totalItems += item.qty;
+                    totalValue += item.qty * item.price;
                 }
             });
-            
-            // Atualizar dados periodicamente
-            setInterval(updateCurrentDate, 60000); // Atualizar minuto a minuto
+
+            itemsCount.textContent = totalItems === 1 ? '1 item' : `${totalItems} itens`;
+            totalEl.textContent = formatCurrency(totalValue);
+
+            if (hasItems) {
+                cartFooter.classList.add('visible');
+            } else {
+                cartFooter.classList.remove('visible');
+            }
         }
 
-        // Inicializar
-        window.onload = initializeAdmin;
+        function checkout() {
+            if (totalValue === 0) {
+                alert('O carrinho esta vazio!');
+                return;
+            }
+
+            let message = 'NOVO PEDIDO - DOCE LAGOM\n\n';
+            Object.keys(cart).forEach((itemId) => {
+                const item = cart[itemId];
+                if (item.qty > 0) {
+                    message += `• ${item.qty}x ${item.name} (${formatCurrency(item.qty * item.price)})\n`;
+                }
+            });
+            message += `\n*Total: ${formatCurrency(totalValue)}*`;
+
+            const phone = '5500000000000';
+            window.open(`https://wa.me/${558393889854}?text=${encodeURIComponent(message)}`, '_blank');
+        }
     </script>
 </body>
 </html>
